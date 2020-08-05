@@ -1,0 +1,126 @@
+@HYPERPERIOD 31200
+
+@TASK_GRAPH 0 {
+	PERIOD 31200
+
+	TASK t0_0	TYPE 0 
+	TASK t0_1	TYPE 1 
+	TASK t0_2	TYPE 2 
+	TASK t0_3	TYPE 3 
+	TASK t0_4	TYPE 4
+	TASK t0_5	TYPE 5
+	TASK t0_6	TYPE 6 
+	TASK t0_7	TYPE 7 
+	TASK t0_8	TYPE 8
+	TASK t0_9	TYPE 9 
+	TASK t0_10	TYPE 10
+	TASK t0_11	TYPE 11
+	TASK t0_12	TYPE 12 
+	TASK t0_13	TYPE 13 
+	TASK t0_14	TYPE 14 
+	TASK t0_15	TYPE 15 
+	TASK t0_16	TYPE 16
+	TASK t0_17	TYPE 17
+	TASK t0_18	TYPE 18 
+	TASK t0_19	TYPE 19 
+	TASK t0_20	TYPE 20
+	TASK t0_21	TYPE 21 
+	TASK t0_22	TYPE 22
+	TASK t0_23	TYPE 23
+	TASK t0_24	TYPE 24 
+	TASK t0_25	TYPE 25 
+	TASK t0_26	TYPE 26 
+	TASK t0_27	TYPE 27 
+	TASK t0_28	TYPE 28
+
+	ARC a0_0 	FROM t0_0  TO  t0_1 TYPE 29
+	ARC a0_1 	FROM t0_1  TO  t0_2 TYPE 30
+	ARC a0_2 	FROM t0_2  TO  t0_3 TYPE 31
+	ARC a0_3 	FROM t0_3  TO  t0_4 TYPE 32
+	ARC a0_4 	FROM t0_4  TO  t0_5 TYPE 33
+	ARC a0_5 	FROM t0_5  TO  t0_6 TYPE 34
+	ARC a0_6 	FROM t0_6  TO  t0_7 TYPE 35
+	ARC a0_7 	FROM t0_7  TO  t0_8 TYPE 36
+	ARC a0_8 	FROM t0_8  TO  t0_9 TYPE 37
+	ARC a0_9 	FROM t0_9  TO  t0_10 TYPE 38
+	ARC a0_10 	FROM t0_10  TO  t0_11 TYPE 39
+	ARC a0_11 	FROM t0_11  TO  t0_12 TYPE 40
+	ARC a0_12 	FROM t0_12  TO  t0_13 TYPE 41
+	ARC a0_13 	FROM t0_13  TO  t0_14 TYPE 42
+	ARC a0_14 	FROM t0_14  TO  t0_15 TYPE 43
+	ARC a0_15 	FROM t0_15  TO  t0_16 TYPE 44
+	ARC a0_16 	FROM t0_16  TO  t0_17 TYPE 45
+	ARC a0_17 	FROM t0_17  TO  t0_18 TYPE 46
+	ARC a0_18 	FROM t0_18  TO  t0_19 TYPE 47
+	ARC a0_19 	FROM t0_19  TO  t0_20 TYPE 48
+	ARC a0_20 	FROM t0_20  TO  t0_21 TYPE 49
+	ARC a0_21 	FROM t0_21  TO  t0_22 TYPE 50
+	ARC a0_22 	FROM t0_22  TO  t0_23 TYPE 51
+	ARC a0_23 	FROM t0_23  TO  t0_24 TYPE 52
+	ARC a0_24 	FROM t0_24  TO  t0_25 TYPE 53
+	ARC a0_25 	FROM t0_25  TO  t0_26 TYPE 54
+	ARC a0_26 	FROM t0_26  TO  t0_27 TYPE 55
+	ARC a0_27 	FROM t0_27  TO  t0_28 TYPE 56
+	
+	HARD_DEADLINE d0_0 ON t0_28 AT 31200
+}
+
+#------------------------------------------------------------------------------
+# type	exec_time
+    0    10
+    1   151
+    2   171
+    3   192
+    4   192
+    5   192
+    6   192
+    7   192
+    8   369
+    9   369
+    10   369
+    11   369
+    12   369
+    13   369
+    14   172
+    15   192
+    16   192
+    17   192
+    18   192
+    19   192
+    20   369
+    21   369
+    22   369
+    23   369
+    24   369
+    25   369
+    26   128
+    27   151
+    28    10
+    29    86
+    30    47
+    31    98
+    32    20
+    33    29
+    34    16
+    35    15
+    36    94
+    37    63
+    38    59
+    39    16
+    40    92
+    41    67
+    42    38
+    43    55
+    44    43
+    45     9
+    46    26
+    47    14
+    48    20
+    49    26
+    50    45
+    51     6
+    52    97
+    53   102
+    54    53
+    55    53
+    56    37
