@@ -1,9 +1,11 @@
 import numpy as np
 import json
-from create_input import init
+from libs import init,Get_Neighborhood,Get_reward
+import copy
 
 #M*N 2D-mesh
-computation_ability=np.array([[1, 1, 2, 1],
+computation_ability=np.array([
+ [1, 1, 2, 1],
  [2, 1, 3, 1],
  [3, 3, 1, 2],
  [1, 3, 2, 2]])
@@ -22,11 +24,11 @@ Tasks_position_current_solution={}#key-value: key=task, value=position in mesh
 
 
 #best solution
-PEs_task_best_solution=PEs_task_current_solution.copy()
+PEs_task_best_solution=copy.deepcopy(PEs_task_current_solution)
 Best_reward=0
 
-Tabu_list={}
-Tabu_length=10
+Tabu_list=[]
+Tabu_length=2
 Search_radius=1
 
 def Initialization(num_of_tasks): 
@@ -37,53 +39,54 @@ def Initialization(num_of_tasks):
         PEs_task_current_solution[rand_tmp].append(i)
         Tasks_position_current_solution.update({i:rand_tmp})
 
-def Get_Neighborhood(position,radius,M,N): #return a list which consists of positions around input position with radius=r
-    row=int(position/N)
-    col=position%N
-    neighborhood=[]
-    for i in range(row-radius,row+radius+1):
-        if(i>=0 and i<M):
-            for j in range(col-radius,col+radius+1):
-                if(j>=0 and (i!=row or j!=col) and j<N):
-                    neighborhood.append(i*N+j)
-    return neighborhood
+
 
 def Update_tabu_list(choosen_position, target_position):
     #delete front element in queue
-    if(len(Tabu_list)==2*Tabu_length): 
-        cnt=0
-        del_keys=[]
-        for i in Tabu_list.keys():
-            del_keys.append(i)
-            cnt+=1
-            if(cnt==2):
-                break
-
-        for i in del_keys:
-            Tabu_list.pop(i)
+    if(len(Tabu_list)==Tabu_length): 
+        Tabu_list.pop(0)
 
     #insert new tabu element
-    Tabu_list.update({choosen_position:target_position})
-    Tabu_list.update({target_position:choosen_position})
+    s=str(choosen_position)+" "+str(target_position)
+    Tabu_list.append(s)
 
-def Get_reward(PEs_task_current_solution):
-    ret=0
-    for i in range(0,len(PEs_task_current_solution)):
-        if(len(PEs_task_current_solution[i])): #this PE has tasks
-            ret+=computation_ability[int(i/N)][i%N]
-    return ret
+
 
 
 def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, update best solution and tabu list
+    print("Current Sol:")
+    print(PEs_task_current_solution)
+    print(Tasks_position_current_solution)
+    print("------------")
+    print("Current reward=",Get_reward(PEs_task_current_solution,computation_ability,M,N))
+    print("------------")
     randomly_selected_task=np.random.randint(0,num_of_tasks) #randomly choose a task
+    print("Randomly choose:"," task ",randomly_selected_task)
     current_position=Tasks_position_current_solution[randomly_selected_task]
-    neighborhood=Get_Neighborhood(current_position,radius)
-    tmp_reward=-999999999
+    neighborhood=Get_Neighborhood(current_position,radius,M,N)
+    print("Neighborhood:",neighborhood)
+    print("------------")
     target_position=-1
+    tmp_reward=-9999
     for i in neighborhood: #visit all neighborhood and find the fittest one in these neighborhoods
-        if(current_position in Tabu_list.keys() and i in Tabu_list.keys()):
+        flag=False
+        for j in Tabu_list:
+            source=j.split()[0]
+            destination=j.split()[1]
+            if(source==current_position and destination==i):
+                flag=True
+                break
+            if(source==i and destination==current_position):
+                flag=True
+                break
+        if(flag):
+            print(i," is baned")
+            print("------------")
             continue
-        reward=Get_reward(PEs_task_current_solution)#待完成
+        tmp_solution=copy.deepcopy(PEs_task_current_solution)
+        tmp_solution[current_position].remove(randomly_selected_task)
+        tmp_solution[i].append(randomly_selected_task)
+        reward=Get_reward(tmp_solution,computation_ability,M,N)
         if(reward>tmp_reward):
             tmp_reward=reward
             target_position=i
@@ -92,13 +95,19 @@ def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, upda
     PEs_task_current_solution[current_position].remove(randomly_selected_task)
     PEs_task_current_solution[target_position].append(randomly_selected_task)
     Tasks_position_current_solution.update({randomly_selected_task:target_position})
+    print("target position:",target_position)
+    print("------------")
   
     #update the best solution
+    global Best_reward
     if(tmp_reward>Best_reward):
+        print("Update Best sol")
         Best_reward=tmp_reward
-        PEs_task_best_solution=PEs_task_current_solution.copy()
+        PEs_task_best_solution=copy.deepcopy(PEs_task_current_solution)
 
     Update_tabu_list(current_position,target_position)
+    print("Tabu_list:",Tabu_list)
+    print("------------")
         
 
 
@@ -111,5 +120,10 @@ def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, upda
     
 if __name__ == '__main__':
     Initialization(num_of_tasks)
-    print(PEs_task_current_solution)
-    print(Get_reward(PEs_task_current_solution))
+    for i in range(0,50):
+        print("Iteration ",i,":")
+        Iteration(num_of_tasks,1)
+    #print(PEs_task_current_solution)
+    #print(Get_reward(PEs_task_current_solution))
+    print("Best reward=",Best_reward)
+    print(PEs_task_best_solution)

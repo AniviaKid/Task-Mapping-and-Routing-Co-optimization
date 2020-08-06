@@ -53,5 +53,24 @@ def init(filename):
 
     return [hyperperiod, num_of_tasks, data, comp_cost]
 
+
+def Get_Neighborhood(position,radius,M,N): #return a list which consists of positions around input position with radius=r
+    row=int(position/N)
+    col=position%N
+    neighborhood=[]
+    for i in range(row-radius,row+radius+1):
+        if(i>=0 and i<M):
+            for j in range(col-radius,col+radius+1):
+                if(j>=0 and (i!=row or j!=col) and j<N):
+                    neighborhood.append(i*N+j)
+    return neighborhood
+
+def Get_reward(PEs_task_current_solution,computation_ability,M,N):
+    ret=0
+    for i in range(0,len(PEs_task_current_solution)):
+        if(len(PEs_task_current_solution[i])): #this PE has tasks
+            ret+=computation_ability[int(i/N)][i%N]
+    return ret
+
 #hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
 #print(num_of_tasks,edges,comp_cost)
