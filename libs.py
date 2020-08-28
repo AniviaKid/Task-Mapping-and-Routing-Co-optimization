@@ -1,4 +1,5 @@
 import re
+import numpy as np
 
 
 
@@ -72,5 +73,37 @@ def Get_reward(PEs_task_current_solution,computation_ability,M,N):
             ret+=computation_ability[int(i/N)][i%N]
     return ret
 
-#hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
-#print(num_of_tasks,edges,comp_cost)
+def Get_detailed_data(num_of_tasks,edges,comp_cost):#输出邻接矩阵，total_needSend,total_needReceive
+    adj_matrix=np.zeros((num_of_tasks+1,num_of_tasks+1),dtype=np.int)#task从1开始算
+    for i in range(0,len(edges)):
+        for j in range(0,len(edges[i])):
+            if(edges[i][j]!=-1):
+                adj_matrix[i+1][j+1]=comp_cost[edges[i][j]]#adj_matrix[i][j]不为0，表示task i有到task j的出边，数组的值为待传输的量
+
+    total_needSend=np.zeros(num_of_tasks+1,dtype=np.int)#task从1开始算的
+    total_needReceive=np.zeros(num_of_tasks+1,dtype=np.int)#task从1开始算的
+    for i in range(1,num_of_tasks+1):
+        task_i_needSend=0
+        for j in range(1,num_of_tasks+1):
+            task_i_needSend+=adj_matrix[i][j]
+        total_needSend[i]=task_i_needSend
+
+    for j in range(1,num_of_tasks+1):
+        task_j_needReceive=0
+        for i in range(1,num_of_tasks+1):
+            task_j_needReceive+=adj_matrix[i][j]
+        total_needReceive[j]=task_j_needReceive
+
+    execution=np.zeros(num_of_tasks+1,dtype=np.int)#task从1开始算的
+    for i in range(1,num_of_tasks+1):
+        execution[i]=comp_cost[i-1]
+    
+    return adj_matrix,total_needSend,total_needReceive,execution
+
+if __name__ == '__main__':
+    hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
+    adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+    print(adj_matrix)
+    print(total_needSend)
+    print(total_needReceive)
+    print(execution)

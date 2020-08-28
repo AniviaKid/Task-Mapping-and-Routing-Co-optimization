@@ -1,0 +1,262 @@
+@HYPERPERIOD 9207
+
+@TASK_GRAPH 0 {
+    PERIOD 9207
+
+   TASK t0_0   TYPE 0
+   TASK t0_1   TYPE 0
+   TASK t0_2   TYPE 0
+   TASK t0_3   TYPE 0
+   TASK t0_4   TYPE 0
+   TASK t0_5   TYPE 0
+   TASK t0_6   TYPE 0
+   TASK t0_7   TYPE 0
+   TASK t0_8   TYPE 0
+   TASK t0_9   TYPE 0
+   TASK t0_10   TYPE 0
+   TASK t0_11   TYPE 0
+   TASK t0_12   TYPE 0
+   TASK t0_13   TYPE 0
+   TASK t0_14   TYPE 0
+   TASK t0_15   TYPE 0
+   TASK t0_16   TYPE 0
+   TASK t0_17   TYPE 0
+   TASK t0_18   TYPE 0
+   TASK t0_19   TYPE 0
+   TASK t0_20   TYPE 0
+   TASK t0_21   TYPE 0
+   TASK t0_22   TYPE 0
+   TASK t0_23   TYPE 0
+   TASK t0_24   TYPE 0
+   TASK t0_25   TYPE 0
+   TASK t0_26   TYPE 0
+   TASK t0_27   TYPE 0
+   TASK t0_28   TYPE 0
+   TASK t0_29   TYPE 0
+   TASK t0_30   TYPE 0
+   TASK t0_31   TYPE 0
+   TASK t0_32   TYPE 0
+   TASK t0_33   TYPE 0
+   TASK t0_34   TYPE 0
+   TASK t0_35   TYPE 0
+   TASK t0_36   TYPE 0
+   TASK t0_37   TYPE 0
+   TASK t0_38   TYPE 0
+   TASK t0_39   TYPE 0
+   TASK t0_40   TYPE 0
+   TASK t0_41   TYPE 0
+   TASK t0_42   TYPE 0
+   TASK t0_43   TYPE 0
+   TASK t0_44   TYPE 0
+   TASK t0_45   TYPE 0
+   TASK t0_46   TYPE 0
+   TASK t0_47   TYPE 0
+   TASK t0_48   TYPE 0
+   TASK t0_49   TYPE 0
+   TASK t0_50   TYPE 0
+   TASK t0_51   TYPE 0
+   TASK t0_52   TYPE 0
+   TASK t0_53   TYPE 0
+   TASK t0_54   TYPE 0
+   TASK t0_55   TYPE 0
+   TASK t0_56   TYPE 0
+   TASK t0_57   TYPE 0
+   TASK t0_58   TYPE 0
+   TASK t0_59   TYPE 0
+   TASK t0_60   TYPE 0
+   TASK t0_61   TYPE 0
+   TASK t0_62   TYPE 0
+
+   ARC a0_0    FROM t0_0  TO  t0_1 TYPE 0
+   ARC a0_0    FROM t0_1  TO  t0_2 TYPE 0
+   ARC a0_0    FROM t0_2  TO  t0_3 TYPE 0
+   ARC a0_0    FROM t0_3  TO  t0_4 TYPE 0
+   ARC a0_0    FROM t0_4  TO  t0_5 TYPE 0
+   ARC a0_0    FROM t0_5  TO  t0_6 TYPE 0
+   ARC a0_0    FROM t0_6  TO  t0_7 TYPE 0
+   ARC a0_0    FROM t0_7  TO  t0_8 TYPE 0
+   ARC a0_0    FROM t0_8  TO  t0_9 TYPE 0
+   ARC a0_0    FROM t0_9  TO  t0_10 TYPE 0
+   ARC a0_0    FROM t0_10  TO  t0_11 TYPE 0
+   ARC a0_0    FROM t0_11  TO  t0_12 TYPE 0
+   ARC a0_0    FROM t0_12  TO  t0_13 TYPE 0
+   ARC a0_0    FROM t0_13  TO  t0_14 TYPE 0
+   ARC a0_0    FROM t0_14  TO  t0_15 TYPE 0
+   ARC a0_0    FROM t0_15  TO  t0_16 TYPE 0
+   ARC a0_0    FROM t0_16  TO  t0_17 TYPE 0
+   ARC a0_0    FROM t0_17  TO  t0_18 TYPE 0
+   ARC a0_0    FROM t0_18  TO  t0_19 TYPE 0
+   ARC a0_0    FROM t0_19  TO  t0_20 TYPE 0
+   ARC a0_0    FROM t0_20  TO  t0_21 TYPE 0
+   ARC a0_0    FROM t0_21  TO  t0_22 TYPE 0
+   ARC a0_0    FROM t0_22  TO  t0_23 TYPE 0
+   ARC a0_0    FROM t0_23  TO  t0_24 TYPE 0
+   ARC a0_0    FROM t0_24  TO  t0_25 TYPE 0
+   ARC a0_0    FROM t0_25  TO  t0_26 TYPE 0
+   ARC a0_0    FROM t0_26  TO  t0_27 TYPE 0
+   ARC a0_0    FROM t0_27  TO  t0_28 TYPE 0
+   ARC a0_0    FROM t0_28  TO  t0_29 TYPE 0
+   ARC a0_0    FROM t0_29  TO  t0_30 TYPE 0
+   ARC a0_0    FROM t0_30  TO  t0_31 TYPE 0
+   ARC a0_0    FROM t0_31  TO  t0_32 TYPE 0
+   ARC a0_0    FROM t0_32  TO  t0_33 TYPE 0
+   ARC a0_0    FROM t0_33  TO  t0_34 TYPE 0
+   ARC a0_0    FROM t0_34  TO  t0_35 TYPE 0
+   ARC a0_0    FROM t0_35  TO  t0_36 TYPE 0
+   ARC a0_0    FROM t0_36  TO  t0_37 TYPE 0
+   ARC a0_0    FROM t0_37  TO  t0_38 TYPE 0
+   ARC a0_0    FROM t0_38  TO  t0_39 TYPE 0
+   ARC a0_0    FROM t0_39  TO  t0_40 TYPE 0
+   ARC a0_0    FROM t0_40  TO  t0_41 TYPE 0
+   ARC a0_0    FROM t0_41  TO  t0_42 TYPE 0
+   ARC a0_0    FROM t0_42  TO  t0_43 TYPE 0
+   ARC a0_0    FROM t0_43  TO  t0_44 TYPE 0
+   ARC a0_0    FROM t0_44  TO  t0_45 TYPE 0
+   ARC a0_0    FROM t0_45  TO  t0_46 TYPE 0
+   ARC a0_0    FROM t0_46  TO  t0_47 TYPE 0
+   ARC a0_0    FROM t0_47  TO  t0_48 TYPE 0
+   ARC a0_0    FROM t0_48  TO  t0_49 TYPE 0
+   ARC a0_0    FROM t0_49  TO  t0_50 TYPE 0
+   ARC a0_0    FROM t0_50  TO  t0_51 TYPE 0
+   ARC a0_0    FROM t0_51  TO  t0_52 TYPE 0
+   ARC a0_0    FROM t0_52  TO  t0_53 TYPE 0
+   ARC a0_0    FROM t0_53  TO  t0_54 TYPE 0
+   ARC a0_0    FROM t0_54  TO  t0_55 TYPE 0
+   ARC a0_0    FROM t0_55  TO  t0_56 TYPE 0
+   ARC a0_0    FROM t0_56  TO  t0_57 TYPE 0
+   ARC a0_0    FROM t0_57  TO  t0_58 TYPE 0
+   ARC a0_0    FROM t0_58  TO  t0_59 TYPE 0
+   ARC a0_0    FROM t0_59  TO  t0_60 TYPE 0
+   ARC a0_0    FROM t0_60  TO  t0_61 TYPE 0
+   ARC a0_0    FROM t0_61  TO  t0_62 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_1 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_2 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_3 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_4 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_5 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_6 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_7 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_8 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_9 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_10 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_11 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_12 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_13 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_14 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_15 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_16 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_17 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_18 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_19 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_20 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_21 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_22 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_23 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_24 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_25 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_26 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_27 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_28 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_29 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_30 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_31 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_32 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_33 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_34 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_35 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_36 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_37 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_38 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_39 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_40 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_41 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_42 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_43 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_44 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_45 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_46 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_47 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_48 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_49 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_50 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_51 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_52 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_53 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_54 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_55 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_56 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_57 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_58 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_59 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_60 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_61 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_62 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_63 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_1 TYPE 0
+   ARC a0_0    FROM t0_1  TO  t0_2 TYPE 0
+   ARC a0_0    FROM t0_2  TO  t0_3 TYPE 0
+   ARC a0_0    FROM t0_3  TO  t0_4 TYPE 0
+   ARC a0_0    FROM t0_4  TO  t0_5 TYPE 0
+   ARC a0_0    FROM t0_5  TO  t0_6 TYPE 0
+   ARC a0_0    FROM t0_6  TO  t0_7 TYPE 0
+   ARC a0_0    FROM t0_7  TO  t0_8 TYPE 0
+   ARC a0_0    FROM t0_8  TO  t0_9 TYPE 0
+   ARC a0_0    FROM t0_9  TO  t0_10 TYPE 0
+   ARC a0_0    FROM t0_10  TO  t0_11 TYPE 0
+   ARC a0_0    FROM t0_11  TO  t0_12 TYPE 0
+   ARC a0_0    FROM t0_12  TO  t0_13 TYPE 0
+   ARC a0_0    FROM t0_13  TO  t0_14 TYPE 0
+   ARC a0_0    FROM t0_14  TO  t0_15 TYPE 0
+   ARC a0_0    FROM t0_15  TO  t0_16 TYPE 0
+   ARC a0_0    FROM t0_16  TO  t0_17 TYPE 0
+   ARC a0_0    FROM t0_17  TO  t0_18 TYPE 0
+   ARC a0_0    FROM t0_18  TO  t0_19 TYPE 0
+   ARC a0_0    FROM t0_19  TO  t0_20 TYPE 0
+   ARC a0_0    FROM t0_20  TO  t0_21 TYPE 0
+   ARC a0_0    FROM t0_21  TO  t0_22 TYPE 0
+   ARC a0_0    FROM t0_22  TO  t0_23 TYPE 0
+   ARC a0_0    FROM t0_23  TO  t0_24 TYPE 0
+   ARC a0_0    FROM t0_24  TO  t0_25 TYPE 0
+   ARC a0_0    FROM t0_25  TO  t0_26 TYPE 0
+   ARC a0_0    FROM t0_26  TO  t0_27 TYPE 0
+   ARC a0_0    FROM t0_27  TO  t0_28 TYPE 0
+   ARC a0_0    FROM t0_28  TO  t0_29 TYPE 0
+   ARC a0_0    FROM t0_29  TO  t0_30 TYPE 0
+   ARC a0_0    FROM t0_30  TO  t0_31 TYPE 0
+   ARC a0_0    FROM t0_31  TO  t0_32 TYPE 0
+   ARC a0_0    FROM t0_32  TO  t0_33 TYPE 0
+   ARC a0_0    FROM t0_33  TO  t0_34 TYPE 0
+   ARC a0_0    FROM t0_34  TO  t0_35 TYPE 0
+   ARC a0_0    FROM t0_35  TO  t0_36 TYPE 0
+   ARC a0_0    FROM t0_36  TO  t0_37 TYPE 0
+   ARC a0_0    FROM t0_37  TO  t0_38 TYPE 0
+   ARC a0_0    FROM t0_38  TO  t0_39 TYPE 0
+   ARC a0_0    FROM t0_39  TO  t0_40 TYPE 0
+   ARC a0_0    FROM t0_40  TO  t0_41 TYPE 0
+   ARC a0_0    FROM t0_41  TO  t0_42 TYPE 0
+   ARC a0_0    FROM t0_42  TO  t0_43 TYPE 0
+   ARC a0_0    FROM t0_43  TO  t0_44 TYPE 0
+   ARC a0_0    FROM t0_44  TO  t0_45 TYPE 0
+   ARC a0_0    FROM t0_45  TO  t0_46 TYPE 0
+   ARC a0_0    FROM t0_46  TO  t0_47 TYPE 0
+   ARC a0_0    FROM t0_47  TO  t0_48 TYPE 0
+   ARC a0_0    FROM t0_48  TO  t0_49 TYPE 0
+   ARC a0_0    FROM t0_49  TO  t0_50 TYPE 0
+   ARC a0_0    FROM t0_50  TO  t0_51 TYPE 0
+   ARC a0_0    FROM t0_51  TO  t0_52 TYPE 0
+   ARC a0_0    FROM t0_52  TO  t0_53 TYPE 0
+   ARC a0_0    FROM t0_53  TO  t0_54 TYPE 0
+   ARC a0_0    FROM t0_54  TO  t0_55 TYPE 0
+   ARC a0_0    FROM t0_55  TO  t0_56 TYPE 0
+   ARC a0_0    FROM t0_56  TO  t0_57 TYPE 0
+   ARC a0_0    FROM t0_57  TO  t0_58 TYPE 0
+   ARC a0_0    FROM t0_58  TO  t0_59 TYPE 0
+   ARC a0_0    FROM t0_59  TO  t0_60 TYPE 0
+   ARC a0_0    FROM t0_60  TO  t0_61 TYPE 0
+   ARC a0_0    FROM t0_61  TO  t0_62 TYPE 0
+   ARC a0_0    FROM t0_0  TO  t0_1 TYPE 0
+}
+50
+#------------------------------------------------------------------------------
+# type  exec_time
+    0    15

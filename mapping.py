@@ -25,6 +25,7 @@ Tasks_position_current_solution={}#key-value: key=task, value=position in mesh
 
 #best solution
 PEs_task_best_solution=copy.deepcopy(PEs_task_current_solution)
+Tasks_position_best_solution=copy.deepcopy(Tasks_position_current_solution)
 Best_reward=0
 
 Tabu_list=[]
@@ -103,7 +104,11 @@ def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, upda
     if(tmp_reward>Best_reward):
         print("Update Best sol")
         Best_reward=tmp_reward
+        global PEs_task_best_solution
         PEs_task_best_solution=copy.deepcopy(PEs_task_current_solution)
+        global Tasks_position_best_solution
+        Tasks_position_best_solution=copy.deepcopy(Tasks_position_current_solution)
+
 
     Update_tabu_list(current_position,target_position)
     print("Tabu_list:",Tabu_list)
@@ -112,7 +117,13 @@ def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, upda
 
 
     
-
+def Generate_json(Tasks_position_solution):
+    MapResult=[-1]
+    for value in Tasks_position_solution.values():
+        MapResult.append(value)
+    with open("MapResult.json","w") as f:
+        json.dump(MapResult,f)
+        print("Saving MapResult in to,","MapResult.json","complete")
 
     
 
@@ -127,3 +138,5 @@ if __name__ == '__main__':
     #print(Get_reward(PEs_task_current_solution))
     print("Best reward=",Best_reward)
     print(PEs_task_best_solution)
+    print(Tasks_position_best_solution)
+    Generate_json(Tasks_position_best_solution)
