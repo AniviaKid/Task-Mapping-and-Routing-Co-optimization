@@ -1,6 +1,6 @@
 import numpy as np
 import json
-from libs import init,Get_Neighborhood,Get_reward
+from libs import init,Get_Neighborhood,Get_mapping_reward
 import copy
 
 #M*N 2D-mesh
@@ -19,6 +19,7 @@ hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
 
 #M*N mesh network, task placed on (i,j) PE
 #current solution
+#task编号都是从0开始的，跟routing部分不一样，需要适配一下
 PEs_task_current_solution=[] #PEs_task_current_solution[i] is a list, means pending tasks of PE(i/N,i%N)
 Tasks_position_current_solution={}#key-value: key=task, value=position in mesh
 
@@ -59,7 +60,7 @@ def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, upda
     print(PEs_task_current_solution)
     print(Tasks_position_current_solution)
     print("------------")
-    print("Current reward=",Get_reward(PEs_task_current_solution,computation_ability,M,N))
+    print("Current reward=",Get_mapping_reward(PEs_task_current_solution,computation_ability,M,N))
     print("------------")
     randomly_selected_task=np.random.randint(0,num_of_tasks) #randomly choose a task
     print("Randomly choose:"," task ",randomly_selected_task)
@@ -87,7 +88,16 @@ def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, upda
         tmp_solution=copy.deepcopy(PEs_task_current_solution)
         tmp_solution[current_position].remove(randomly_selected_task)
         tmp_solution[i].append(randomly_selected_task)
-        reward=Get_reward(tmp_solution,computation_ability,M,N)
+        reward=Get_mapping_reward(tmp_solution,computation_ability,M,N)
+
+        tmp_mapresults=copy.deepcopy(Tasks_position_current_solution)
+        tmp_mapresults.update({randomly_selected_task:i})
+        tmp_mapresults1=[-1]#把task编号改成从1开始，然后传给routing部分
+        for i in range(0,num_of_tasks):
+            tmp_mapresults1.append(tmp_mapresults[i])
+        print("map_result=",tmp_mapresults1)
+        #通过RL计算最佳routing，然后获得routing的reward
+
         if(reward>tmp_reward):
             tmp_reward=reward
             target_position=i

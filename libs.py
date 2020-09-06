@@ -1,6 +1,14 @@
 import re
 import numpy as np
-
+import sys
+import getopt
+import json
+import math
+#import Queue
+import networkx as nx
+import pylab
+import numpy as np
+import logging, sys
 
 
 def init(filename):
@@ -66,14 +74,14 @@ def Get_Neighborhood(position,radius,M,N): #return a list which consists of posi
                     neighborhood.append(i*N+j)
     return neighborhood
 
-def Get_reward(PEs_task_current_solution,computation_ability,M,N):
+def Get_mapping_reward(PEs_task_current_solution,computation_ability,M,N):
     ret=0
     for i in range(0,len(PEs_task_current_solution)):
         if(len(PEs_task_current_solution[i])): #this PE has tasks
             ret+=computation_ability[int(i/N)][i%N]
     return ret
 
-def Get_detailed_data(num_of_tasks,edges,comp_cost):#输出邻接矩阵，total_needSend,total_needReceive
+def Get_detailed_data(num_of_tasks,edges,comp_cost):#输出邻接矩阵,total_needSend,total_needReceive,execution
     adj_matrix=np.zeros((num_of_tasks+1,num_of_tasks+1),dtype=np.int)#task从1开始算
     for i in range(0,len(edges)):
         for j in range(0,len(edges[i])):
@@ -100,6 +108,30 @@ def Get_detailed_data(num_of_tasks,edges,comp_cost):#输出邻接矩阵，total_
     
     return adj_matrix,total_needSend,total_needReceive,execution
 
+def find_start_task(adj_matrix,num_of_tasks):#寻找入度为0的点
+    ret=[]
+    in_degree=np.zeros(num_of_tasks+1,dtype=np.int)
+    for i in range(1,num_of_tasks+1):
+        for j in range(1,num_of_tasks+1):
+            if(adj_matrix[i][j]!=0):
+                in_degree[j]+=1
+    for i in range(1,num_of_tasks+1):
+        if(in_degree[i]==0):
+            ret.append(i)
+    return ret
+
+def get_sorted_dict(dict):
+    ret={}
+    #l=sorted(dict.keys())
+    l=[]
+    for i in dict.keys():
+        l.append(int(i))
+    l.sort()
+    for i in l:
+        ret.update({str(i):dict[str(i)]})
+    return ret
+    
+
 if __name__ == '__main__':
     hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
     adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
@@ -107,3 +139,4 @@ if __name__ == '__main__':
     print(total_needSend)
     print(total_needReceive)
     print(execution)
+    print(find_start_task(adj_matrix,num_of_tasks))

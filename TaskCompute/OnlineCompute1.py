@@ -57,7 +57,31 @@ class onlineTimeline:
 
         self.nowTime = 0
 
-   
+        self.fullRouteFromRL={}#key-value表示从task_key到task_value的route全部是由RL计算的
+        self.partRouteFromRL=[]#前两个元素i，j表示在计算从task_i到task_j的出边，之后的元素就是json里的route格式，如[0, "S"]，当前位置+下一步移动方向
+        self.pendTimes=0#由RL计算的路径导致推迟的次数
+
+    def loadGraphByDict(self,taskGraph1,MapResult1,fullRouteFromRL1,partRouteFromRL1):
+        for i in range(1,len(taskGraph1)+1):
+            self.sendMatrix.append(taskGraph1[str(i)]['total_needSend'])
+            self.receiveMatrix.append(taskGraph1[str(i)]['total_needReceive'])
+            self.totalSize = self.totalSize + taskGraph1[str(i)]['total_needSend']
+            self.exeMatric.append(taskGraph1[str(i)]['exe_time'])
+            self.stateMatrix.append(1000)
+            for task in taskGraph1[str(i)]['out_links']:  
+                task.append(0)
+        self.taskGraph = taskGraph1
+        self.MapResult = MapResult1
+        self.fullRouteFromRL=fullRouteFromRL1
+        self.partRouteFromRL=partRouteFromRL1
+        print("task graph loaded++++++++++++++++++++++")
+        print("sendMatric",self.sendMatrix)
+        print("receiveMatric",self.receiveMatrix)
+        print("exeMatric",self.exeMatric)
+        self.stateMatrix[1]=1
+        print("taskGraph",self.taskGraph)
+        print("MapResult",self.MapResult)
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
         
     def loadGraph(self):
         with open(self.inputfile+"taskGraph.json","r") as f:
@@ -222,7 +246,7 @@ class onlineTimeline:
                         print("Since Mapped to same core, this transmiss = 0", i,sendtoi)
                         self.taskGraph[str(i)]['out_links'].remove(dest)
                     else:  
-                        canSend = self.checkCanSend(route,dest[-2],dest[1])#route,priority,size
+                        canSend = self.checkCanSend(route,dest[-2],dest[1],int(i),int(dest[0]))#route,priority,size,task_source,task_destination
                     if(canSend==0):
                         print("should Pending",sendtoi)
                         if([i,sendtoi,route,dest] not in self.pendTask):
@@ -246,7 +270,7 @@ class onlineTimeline:
 
 
         for i in self.pendTask[:]:
-            canSend = self.checkCanSend(i[2],i[-1][-2],i[-1][1])
+            canSend = self.checkCanSend(i[2],i[-1][-2],i[-1][1],int(i[0]),int(i[1]))
 
             if(canSend==1):
                 print("from pending",i)
@@ -401,18 +425,34 @@ class onlineTimeline:
         return route        
             
 
-    def checkCanSend(self,route,pri,size):
+    def checkCanSend(self,route,pri,size,task_source,task_destination):
         print("this is for checking",route,pri,size)
         #print("checking resout+++++++++++++")
         for rt in route:
             #print(rt,self.NoClink[rt[0]].eList,self.NoClink[rt[0]].wList,self.NoClink[rt[0]].nList,self.NoClink[rt[0]].sList)
             if(rt[1] == 'E' and self.NoClink[rt[0]].eList == 1):
+                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                    self.pendTimes+=1
+                elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
+                    self.pendTimes+=1
                 return False
             elif(rt[1] == 'W' and self.NoClink[rt[0]].wList == 1):
+                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                    self.pendTimes+=1
+                elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
+                    self.pendTimes+=1
                 return False
             elif(rt[1] == 'N' and self.NoClink[rt[0]].nList == 1):
+                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                    self.pendTimes+=1
+                elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
+                    self.pendTimes+=1
                 return False
             elif(rt[1] == 'S' and self.NoClink[rt[0]].sList == 1):
+                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                    self.pendTimes+=1
+                elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
+                    self.pendTimes+=1
                 return False
         '''
         for i in range(1,len(self.taskGraph)+1):#检查每一个task
@@ -472,7 +512,7 @@ def main(argv):
     print('row: ', rowNum)
     task = onlineTimeline(inputfile,rowNum)
     task.loadGraph()
-    task.computeTime()
+    #task.computeTime()
 
 
 if __name__ == "__main__":
