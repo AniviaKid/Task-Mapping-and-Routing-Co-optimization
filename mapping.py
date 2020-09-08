@@ -93,8 +93,8 @@ def Iteration(num_of_tasks,radius): #expand neighborhood, find the fittest, upda
         tmp_mapresults=copy.deepcopy(Tasks_position_current_solution)
         tmp_mapresults.update({randomly_selected_task:i})
         tmp_mapresults1=[-1]#把task编号改成从1开始，然后传给routing部分
-        for i in range(0,num_of_tasks):
-            tmp_mapresults1.append(tmp_mapresults[i])
+        for j in range(0,num_of_tasks):
+            tmp_mapresults1.append(tmp_mapresults[j])
         print("map_result=",tmp_mapresults1)
         #通过RL计算最佳routing，然后获得routing的reward
 
@@ -141,7 +141,7 @@ def Generate_json(Tasks_position_solution):
     
 if __name__ == '__main__':
     Initialization(num_of_tasks)
-    for i in range(0,50):
+    for i in range(0,5):
         print("Iteration ",i,":")
         Iteration(num_of_tasks,1)
     #print(PEs_task_current_solution)

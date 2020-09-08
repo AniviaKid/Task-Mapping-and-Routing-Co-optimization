@@ -1,8 +1,0 @@
-如何定义starttime，endtime，pri
-
-将mesh以及数据在mesh中的位置作为state，输入到网络中，告诉网络在当前的step数据的位置在哪个PE，然后网络决定数据下一步往哪里走，然后将新选出来的route加入到师姐的程序里，根据总的等待次数计算reward
-
-对于没有完全完成的route，要怎么搞？
-尝试解法：后面的用XY-routing，先把延迟算出来，只算网络算出来的route的部分的延迟
-
-传进师姐的程序里的taskgraph一开始只有第一条边的两个节点，然后不断添加边，再往taskgraph里添加边的相应的节点

@@ -4,19 +4,21 @@ import sys
 import getopt
 import json
 import math
-#import Queue
 import networkx as nx
 import pylab
-import numpy as np
 import logging, sys
+
+import random
+
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
+from torch.distributions import Categorical
 
 
 def init(filename):
-    """
-    This function read the tgff file and
-    build computation matrix, communication matrix, rate matrix.
-    TGFF is a useful tool to generate directed acyclic graph, tfgg file represent a task graph.
-    """
     f = open(filename, 'r')
 
     #Get hyperperiod
@@ -120,9 +122,8 @@ def find_start_task(adj_matrix,num_of_tasks):#寻找入度为0的点
             ret.append(i)
     return ret
 
-def get_sorted_dict(dict):
+def get_sorted_dict(dict):#将task_graph按照task的序号排序，再传入online_compute
     ret={}
-    #l=sorted(dict.keys())
     l=[]
     for i in dict.keys():
         l.append(int(i))
@@ -131,6 +132,88 @@ def get_sorted_dict(dict):
         ret.update({str(i):dict[str(i)]})
     return ret
     
+
+class ActorCritic(nn.Module):#输入：channel*length,4是channel,N是PE 输出：1*action_space和1*1
+    def __init__(self, input_channel,input_length, action_space):#input_length是PE的个数
+        super(ActorCritic, self).__init__()
+        
+        self.critic = nn.Sequential(#输入为1*input_channel*input_length
+            #nn.Linear(num_inputs, hidden_size),
+            #nn.ReLU(),
+            #nn.Linear(hidden_size, 1)#1*1
+            nn.Conv1d(input_channel,1,input_length,1)#输出为 1*1*1
+        )
+        
+        self.actor = nn.Sequential(
+            #nn.Linear(num_inputs, hidden_size),
+            #nn.ReLU(),
+            #nn.Linear(hidden_size, action_space),#1*action_space
+            #nn.Softmax(dim=1),
+            #conv1d的输出为1*1*action_space
+            nn.Conv1d(input_channel,1,(input_length-action_space+1),1),
+            nn.Softmax(dim=2)
+        )
+        
+    def forward(self, x):
+        value = self.critic(x)
+        probs = self.actor(x)
+        dist  = Categorical(probs)#.sample()得到的是1*1的二维矩阵tensor，例如[[1]]，再.numpy后可以得到正常的矩阵
+        return dist, value
+
+
+def Get_full_route_by_XY(part_route,source_position,dest_position,num_of_rows):
+    ret=part_route
+    dest_row=int(dest_position/num_of_rows)
+    dest_col=dest_position%num_of_rows
+    cur_row=-1
+    cur_col=-1
+
+    if(len(part_route)==0):
+        cur_row=int(source_position/num_of_rows)
+        cur_col=source_position%num_of_rows
+    else:#计算出数据现在走到了哪个位置
+        cur_position=part_route[-1][0]
+        cur_row=int(cur_position/num_of_rows)
+        cur_col=cur_position%num_of_rows
+        if(part_route[-1][1]=='N'):
+            cur_row-=1
+        elif(part_route[-1][1]=='S'):
+            cur_row+=1
+        elif(part_route[-1][1]=='W'):
+            cur_col-=1
+        elif(part_route[-1][1]=='E'):
+            cur_col+=1
+
+    while(cur_row<dest_row):
+        tmp=[]
+        tmp.append(cur_row*num_of_rows+cur_col)
+        tmp.append('S')
+        ret.append(tmp)
+        cur_row+=1
+    while(cur_row>dest_row):
+        tmp=[]
+        tmp.append(cur_row*num_of_rows+cur_col)
+        tmp.append('N')
+        ret.append(tmp)
+        cur_row-=1
+    while(cur_col<dest_col):
+        tmp=[]
+        tmp.append(cur_row*num_of_rows+cur_col)
+        tmp.append('E')
+        ret.append(tmp)
+        cur_col+=1
+    while(cur_col>dest_col):
+        tmp=[]
+        tmp.append(cur_row*num_of_rows+cur_col)
+        tmp.append('W')
+        ret.append(tmp)
+        cur_col-=1
+    
+    return ret
+    
+
+
+
 
 if __name__ == '__main__':
     hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
