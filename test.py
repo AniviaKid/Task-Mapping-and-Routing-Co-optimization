@@ -62,6 +62,16 @@ def Environment(state,action,source_position,dest_position,num_of_rows,task_grap
         #根据pendTimes计算reward
         return [next_state_tensor,next_position,next_partRoute],pendTimes,True
 
+def test(x):
+    if(x==1 or x==100):
+        return 10
+    return 1
+
+i=1
+i+=1
+print(test(100))
+
+"""
 task_graph={'1': {'total_needSend': 48, 'out_links': [['2', 48, [], 0, 0, -1]], 'total_needReceive': 0, 'exe_time': 10}, '2': {'total_needSend': 0, 'out_links': [], 'total_needReceive': 48, 'exe_time': 10}}
 MapResult=[-1,4,6,10,11]
 
@@ -76,7 +86,7 @@ print(pendTimes)
 print(done)
 
 
-"""
+
 state=torch.Tensor(np.random.rand(1,1,4))
 print(state)
 softmax=nn.Softmax(dim=2)
@@ -90,28 +100,6 @@ print(action,type(action))
 log_prob=dist.log_prob(action)
 print(log_prob)
 
-
-part=[1,5,[0,"E"],[1,"S"]]
-route=[[0,"E"],[0,"N"],[2,"S"],[3,"W"]]
-
-task_graph={}
-task_graph.update({"1":{"total_needSend": 2, "out_links": [["2", 2, [], 0, 0, -1]], "total_needReceive": 0, "exe_time": 1}})
-#print(task_graph)
-task_graph["1"]["out_links"].append(["3", 1, [[0, "S"]], 1, 2, 1])
-task_graph["1"]["total_needSend"]+=1
-#print(task_graph)
-
-q=Queue(maxsize=0)
-q.put(1)
-q.put(2)
-q.put(3)
-print(q.queue)
-x=q.get()
-
-tmp={1:100,2:50,3:75}
-tmp=sorted(tmp.items(), key=lambda x:x[1])
-for i in tmp:
-    print(i[0],type(i[0]))
 """
 #hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
 
