@@ -86,6 +86,7 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
                 #state的四个channel,从0-3以此为N,S,W,E
                 #state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
                 #cur_position_in_calc=mapResult[u]
+                #传进RL之前先check一次，确保当前的state不是end state，至少能执行一次action
                 #传进网络中计算action....
                 #done之后要根据partRoute更新fullRoute和taskgraph
 

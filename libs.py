@@ -9,6 +9,7 @@ import pylab
 import logging, sys
 
 import random
+import copy
 
 
 import torch
@@ -162,7 +163,7 @@ class ActorCritic(nn.Module):#输入：channel*length,4是channel,N是PE 输出�
 
 
 def Get_full_route_by_XY(part_route,source_position,dest_position,num_of_rows):
-    ret=part_route
+    ret=copy.deepcopy(part_route)
     dest_row=int(dest_position/num_of_rows)
     dest_col=dest_position%num_of_rows
     cur_row=-1
@@ -184,18 +185,6 @@ def Get_full_route_by_XY(part_route,source_position,dest_position,num_of_rows):
         elif(part_route[-1][1]=='E'):
             cur_col+=1
 
-    while(cur_row<dest_row):
-        tmp=[]
-        tmp.append(cur_row*num_of_rows+cur_col)
-        tmp.append('S')
-        ret.append(tmp)
-        cur_row+=1
-    while(cur_row>dest_row):
-        tmp=[]
-        tmp.append(cur_row*num_of_rows+cur_col)
-        tmp.append('N')
-        ret.append(tmp)
-        cur_row-=1
     while(cur_col<dest_col):
         tmp=[]
         tmp.append(cur_row*num_of_rows+cur_col)
@@ -208,6 +197,20 @@ def Get_full_route_by_XY(part_route,source_position,dest_position,num_of_rows):
         tmp.append('W')
         ret.append(tmp)
         cur_col-=1
+
+    while(cur_row<dest_row):
+        tmp=[]
+        tmp.append(cur_row*num_of_rows+cur_col)
+        tmp.append('S')
+        ret.append(tmp)
+        cur_row+=1
+    while(cur_row>dest_row):
+        tmp=[]
+        tmp.append(cur_row*num_of_rows+cur_col)
+        tmp.append('N')
+        ret.append(tmp)
+        cur_row-=1
+    
     
     return ret
     

@@ -81,6 +81,8 @@ class onlineTimeline:
         self.stateMatrix[1]=1
         print("taskGraph",self.taskGraph)
         print("MapResult",self.MapResult)
+        print("fullRouteFromRL",self.fullRouteFromRL)
+        print("partRouteFromRL",self.partRouteFromRL)
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
         
     def loadGraph(self):
