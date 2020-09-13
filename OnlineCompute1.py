@@ -7,6 +7,7 @@ import networkx as nx
 import pylab
 import numpy as np
 import logging, sys
+import copy
 
 
 
@@ -57,33 +58,42 @@ class onlineTimeline:
 
         self.nowTime = 0
 
-        self.fullRouteFromRL={}#key-value表示从task_key到task_value的route全部是由RL计算的
+        self.fullRouteFromRL=[]#(task_source,task_dest)表示从task_source到task_dest的route全部是由RL计算的
         self.partRouteFromRL=[]#前两个元素i，j表示在计算从task_i到task_j的出边，之后的元素就是json里的route格式，如[0, "S"]，当前位置+下一步移动方向
         self.pendTimes=0#由RL计算的路径导致推迟的次数
 
     def loadGraphByDict(self,taskGraph1,MapResult1,fullRouteFromRL1,partRouteFromRL1):
-        for i in range(1,len(taskGraph1)+1):
-            self.sendMatrix.append(taskGraph1[str(i)]['total_needSend'])
-            self.receiveMatrix.append(taskGraph1[str(i)]['total_needReceive'])
-            self.totalSize = self.totalSize + taskGraph1[str(i)]['total_needSend']
-            self.exeMatric.append(taskGraph1[str(i)]['exe_time'])
-            self.stateMatrix.append(1000)
-            for task in taskGraph1[str(i)]['out_links']:  
-                task.append(0)
-        self.taskGraph = taskGraph1
+        tmp_taskgraph=copy.deepcopy(taskGraph1)
+        for i in range(1,len(tmp_taskgraph)+1):
+            if(str(i) in tmp_taskgraph.keys()):
+                self.sendMatrix.append(tmp_taskgraph[str(i)]['total_needSend'])
+                self.receiveMatrix.append(tmp_taskgraph[str(i)]['total_needReceive'])
+                self.totalSize = self.totalSize + tmp_taskgraph[str(i)]['total_needSend']
+                self.exeMatric.append(tmp_taskgraph[str(i)]['exe_time'])
+                self.stateMatrix.append(1000)
+                for task in tmp_taskgraph[str(i)]['out_links']:  
+                    task.append(0)
+            else:
+                self.sendMatrix.append(0)
+                self.receiveMatrix.append(0)
+                self.exeMatric.append(0)
+                self.stateMatrix.append(0)
+        self.taskGraph = tmp_taskgraph
         self.MapResult = MapResult1
         self.fullRouteFromRL=fullRouteFromRL1
         self.partRouteFromRL=partRouteFromRL1
+        self.stateMatrix[1]=1
+        """
         print("task graph loaded++++++++++++++++++++++")
         print("sendMatric",self.sendMatrix)
         print("receiveMatric",self.receiveMatrix)
         print("exeMatric",self.exeMatric)
-        self.stateMatrix[1]=1
         print("taskGraph",self.taskGraph)
         print("MapResult",self.MapResult)
         print("fullRouteFromRL",self.fullRouteFromRL)
         print("partRouteFromRL",self.partRouteFromRL)
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
+        """
         
     def loadGraph(self):
         with open(self.inputfile+"taskGraph.json","r") as f:
@@ -384,7 +394,7 @@ class onlineTimeline:
             # if(self.nowTime>0):
             #     str1 = input()
     
-        print("total time:",self.nowTime)
+        #print("total time:",self.nowTime)
         return self.pendTimes
 
     def Dprint(self,name1,list1):
@@ -431,30 +441,35 @@ class onlineTimeline:
             
 
     def checkCanSend(self,route,pri,size,task_source,task_destination):#传进来的task都是int类型
-        #print("this is for checking",route,pri,size)
+        #print("this is for checking",route,pri,size,task_source,task_destination)
         #print("checking resout+++++++++++++")
+        flag=False
+        for i in self.fullRouteFromRL:
+            if(task_source == i[0] and task_destination == i[1]):#这条出边全部由RL计算
+                flag=True
+                break
         for rt in route:
             #print(rt,self.NoClink[rt[0]].eList,self.NoClink[rt[0]].wList,self.NoClink[rt[0]].nList,self.NoClink[rt[0]].sList)
             if(rt[1] == 'E' and self.NoClink[rt[0]].eList == 1):
-                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                if(flag):
                     self.pendTimes+=1
                 elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
                     self.pendTimes+=1
                 return False
             elif(rt[1] == 'W' and self.NoClink[rt[0]].wList == 1):
-                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                if(flag):
                     self.pendTimes+=1
                 elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
                     self.pendTimes+=1
                 return False
             elif(rt[1] == 'N' and self.NoClink[rt[0]].nList == 1):
-                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                if(flag):
                     self.pendTimes+=1
                 elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
                     self.pendTimes+=1
                 return False
             elif(rt[1] == 'S' and self.NoClink[rt[0]].sList == 1):
-                if( task_source in self.fullRouteFromRL.keys() and task_destination==self.fullRouteFromRL[task_source] ):
+                if(flag):
                     self.pendTimes+=1
                 elif(task_source==self.partRouteFromRL[0] and task_destination==self.partRouteFromRL[1] and rt in self.partRouteFromRL):
                     self.pendTimes+=1
@@ -517,7 +532,7 @@ def main(argv):
     print('row: ', rowNum)
     task = onlineTimeline(inputfile,rowNum)
     task.loadGraph()
-    #task.computeTime()
+    task.computeTime()
 
 
 if __name__ == "__main__":

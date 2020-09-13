@@ -16,8 +16,16 @@ import time
 from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic
 from queue import Queue
 
+part_Route=[2, 3, [1, 'E'], [2, 'S'], [6, 'S']]
 
+route=[[1, 'E'], [2, 'S'], [6, 'S']]
 
+for rt in route:
+    print(rt)
+    if(rt in part_Route):
+        print(1)
+    else:
+        print(0)
 
 
 """
@@ -49,6 +57,7 @@ if(tmp_done==False):
 
 
 """
+"""
 #state=torch.Tensor(np.random.rand(1,1,2))
 state=torch.Tensor(np.random.rand(1,4,16))
 #print(state)
@@ -56,7 +65,7 @@ softmax=nn.Softmax(dim=2)
 critic=Critic(4,16)
 value=critic(state)
 print(value,type(value),value.shape)
-"""
+
 probs=softmax(state)
 #print(probs,type(probs),probs.shape)
 #print(probs[0][0],type(probs[0][0]))

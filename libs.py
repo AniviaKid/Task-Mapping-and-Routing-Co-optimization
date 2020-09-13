@@ -235,17 +235,27 @@ def check_if_Done(state,source_position,dest_position,num_of_rows,task_graph,ful
         next_partRoute=Get_full_route_by_XY(state[2],source_position,dest_position,num_of_rows)
         #处理参数，传进onlineCompute计算pending次数
         #首先更新taskgraph里的这条链路的路由表
-        for i in task_graph[str(task_source)]['out_links']:
-            if(int(i[0])==task_dest):
-                i[2]=next_partRoute
+        for i in range(0,len(task_graph[str(task_source)]['out_links'])):
+            if(int(task_graph[str(task_source)]['out_links'][i][0])==task_dest):
+                task_graph[str(task_source)]['out_links'][i][2]=next_partRoute
         #处理partRoute
         partRoute_to_onlineCompute=[]
         partRoute_to_onlineCompute.append(task_source)
         partRoute_to_onlineCompute.append(task_dest)
-        partRoute_to_onlineCompute.append(next_partRoute)
+        for i in next_partRoute:
+            partRoute_to_onlineCompute.append(i)
         task=onlineTimeline("",num_of_rows)
+        #print("C_fullRoute:",fullRouteFromRL)
+        #print("C_partRoute:",partRoute_to_onlineCompute)
+        #print("C_computing:",task_graph)
         task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute)
         pendTimes=task.computeTime()
+        #print("C_pendTimes",pendTimes)
+        """
+        for j in task_graph.keys():
+            for k in range(0,len(task_graph[j]['out_links'])):
+                task_graph[j]['out_links'][k]=task_graph[j]['out_links'][k][0:6]
+        """
         #根据pendTimes计算reward
         return [next_state_tensor,next_position,next_partRoute],Get_reward_by_pendTimes(pendTimes),True
 
@@ -297,17 +307,27 @@ def Environment(state,action,source_position,dest_position,num_of_rows,task_grap
         fullRouteByXY=Get_full_route_by_XY(next_partRoute,source_position,dest_position,num_of_rows)
         #处理参数，传进onlineCompute计算pending次数
         #首先更新taskgraph里的这条链路的路由表
-        for i in task_graph[str(task_source)]['out_links']:
-            if(int(i[0])==task_dest):
-                i[2]=fullRouteByXY
+        for i in range(0,len(task_graph[str(task_source)]['out_links'])):
+            if(int(task_graph[str(task_source)]['out_links'][i][0])==task_dest):
+                task_graph[str(task_source)]['out_links'][i][2]=fullRouteByXY
         #处理partRoute
         partRoute_to_onlineCompute=[]
         partRoute_to_onlineCompute.append(task_source)
         partRoute_to_onlineCompute.append(task_dest)
-        partRoute_to_onlineCompute.append(next_partRoute)
+        for i in next_partRoute:
+            partRoute_to_onlineCompute.append(i)
         task=onlineTimeline("",num_of_rows)
+        #print("fullRoute:",fullRouteFromRL)
+        #print("partRoute:",partRoute_to_onlineCompute)
+        #print("computing:",task_graph)
         task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute)
         pendTimes=task.computeTime()
+        #print("pendTimes",pendTimes)
+        """
+        for j in task_graph.keys():
+            for k in range(0,len(task_graph[j]['out_links'])):
+                task_graph[j]['out_links'][k]=task_graph[j]['out_links'][k][0:6]
+        """
         #根据pendTimes计算reward
         return [next_state_tensor,next_position,next_partRoute],Get_reward_by_pendTimes(pendTimes),False
 

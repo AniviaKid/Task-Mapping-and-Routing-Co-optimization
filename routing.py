@@ -29,8 +29,8 @@ from OnlineCompute1 import onlineTimeline
 def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
     start_task_list=find_start_task(adj_matrix,num_of_tasks)#入度为0的点的集合
     task_graph={}
-    fullRouteFromRL={}#key-value表示从task_key到task_value的route全部是由RL计算的
-    #partRouteFromRL=[]#它的元素就是json里的route格式，如[0, "S"]，当前位置+下一步移动方向
+    fullRouteFromRL=[]#(task_source,task_dest)表示从task_source到task_dest的route全部是由RL计算的
+    
 
     use_cuda = torch.cuda.is_available()
     device   = torch.device("cuda" if use_cuda else "cpu")
@@ -40,7 +40,7 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
         q.put(start_task)
         while(q.empty()!=True):#BFS
             u=q.get()
-            adj_u={}#task_dest - send_size
+            adj_u={}#task_dest - send_size，用于排序寻找用时最短的任务
             for i in range(1,num_of_tasks+1):
                 if(adj_matrix[u][i]!=0):
                     adj_u[i]=adj_matrix[u][i]
@@ -59,41 +59,48 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
                     task_graph.update({str(i[0]):{'total_needSend':0,'out_links':[],'total_needReceive':i[1],'exe_time':execution[i[0]]}})
                 else:#task i[0]在task graph中，仅需要更新接收参数
                     task_graph[str(i[0])]['total_needReceive']+=i[1]
+                task_graph=get_sorted_dict(task_graph)
                 
                 #开始为边u->i[0]计算路由
                 #state为[state_tensor,cur_position,partRouteFromRL]，传进来的partRoute的格式是直接的路由表，没有第一位第二位的task
                 #state_tensor的四个channel,从0-3以此为N,S,W,E
-                state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
+                state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int)).to(device)
                 state=[state_tensor,MapResult[u],[]]
                 #确保当前的state(map后的位置)不是end state，至少能执行一次action
                 tmp_state,_,tmp_done=check_if_Done(state,source_position=MapResult[u],dest_position=MapResult[i[0]],num_of_rows=num_of_rows,task_graph=task_graph,fullRouteFromRL=fullRouteFromRL,task_source=u,task_dest=i[0],MapResult=MapResult)
                 if(tmp_done):#这两个task的位置无需计算route，直接结束，需要更新fullRoute和taskgraph
                     #首先更新taskgraph
-                    for j in task_graph[str(u)]['out_links']:
-                        if(int(j[0])==int(i[0])):
-                            j[2]=tmp_state[2]
+                    for j in range(0,len(task_graph[str(u)]['out_links'])):
+                        if(int(task_graph[str(u)]['out_links'][j][0])==int(i[0])):
+                            task_graph[str(u)]['out_links'][j][2]=tmp_state[2]
                     #更新fullRoute
-                    fullRouteFromRL.update({u:i[0]})
+                    fullRouteFromRL.append((u,i[0]))
+                    continue
                 #开始RL
-                actor=Actor(4,num_of_rows*num_of_rows,2)
-                critic=Critic(4,num_of_rows*num_of_rows)
+                actor=Actor(4,num_of_rows*num_of_rows,2).to(device)
+                critic=Critic(4,num_of_rows*num_of_rows).to(device)
                 adam_actor=optim.Adam(actor.parameters(),lr=1e-3)
                 adam_critic=optim.Adam(critic.parameters(), lr=1e-3)
                 gamma=0.99
                 episode_rewards = []
-                for _ in range(500):
+                best_Route=[]
+                best_reward=-99999
+                for _ in range(100):
+                    #print("kkk=",kkk,"edge=",u,"->",i[0])
                     done=False
                     total_reward=0
                     state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
                     state=[state_tensor,MapResult[u],[]]
 
                     while not done:
+                        state[0]=state[0].to(device)
                         probs=actor(state[0])
                         dist = torch.distributions.Categorical(probs=probs)
                         action = dist.sample()
 
                         next_state,reward,done=Environment(state,int(action),source_position=MapResult[u],dest_position=MapResult[i[0]],num_of_rows=num_of_rows,task_graph=task_graph,fullRouteFromRL=fullRouteFromRL,task_source=u,task_dest=i[0],MapResult=MapResult)
                         d=0
+                        next_state[0]=next_state[0].to(device)
                         if(done):
                             d=1
                         advantage=reward+(1-d)*gamma*critic(next_state[0])-critic(state[0])
@@ -111,12 +118,26 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
                         adam_actor.zero_grad()
                         actor_loss.backward()
                         adam_actor.step()
-                        
+                    
+                    if(total_reward>best_reward):
+                        best_reward=total_reward
+                        best_Route=state[2]
                     episode_rewards.append(total_reward)
+                #print(episode_rewards)
+                for j in range(0,len(task_graph[str(u)]['out_links'])):
+                    if(int(task_graph[str(u)]['out_links'][j][0])==int(i[0])):
+                        task_graph[str(u)]['out_links'][j][2]=best_Route
+                #print(get_sorted_dict(task_graph))
+                fullRouteFromRL.append((u,i[0]))
+
 
                 
 
     print(get_sorted_dict(task_graph))
+    task=onlineTimeline("",num_of_rows)
+    task.loadGraphByDict(get_sorted_dict(task_graph),MapResult,fullRouteFromRL,[-1,-1])
+    pendTimes=task.computeTime()
+    print(pendTimes)
 
 
     
@@ -133,9 +154,11 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
 
 hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
 adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+#print(adj_matrix)
 num_of_rows=4
+MapResults=[-1,4,1,10,3]
 
-routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,1)
+routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResults)
 
 
 
