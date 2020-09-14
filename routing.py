@@ -85,8 +85,8 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
                 episode_rewards = []
                 best_Route=[]
                 best_reward=-99999
-                for _ in range(100):
-                    #print("kkk=",kkk,"edge=",u,"->",i[0])
+                for kkk in range(100):
+                    print("iteration in RL is ",kkk,"edge=",u,"->",i[0])
                     done=False
                     total_reward=0
                     state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
@@ -133,11 +133,13 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
 
                 
 
-    print(get_sorted_dict(task_graph))
+    #print(get_sorted_dict(task_graph))
+    task_graph=get_sorted_dict(task_graph)
     task=onlineTimeline("",num_of_rows)
-    task.loadGraphByDict(get_sorted_dict(task_graph),MapResult,fullRouteFromRL,[-1,-1])
+    #print(task_graph)
+    task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,[-1,-1],num_of_tasks)
     pendTimes=task.computeTime()
-    print(pendTimes)
+    return Get_reward_by_pendTimes(pendTimes),task_graph
 
 
     
@@ -150,15 +152,15 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
 
 
 
+if __name__ == '__main__':
 
+    hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
+    adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+    #print(adj_matrix)
+    num_of_rows=4
+    MapResults=[-1,4,1,10,3]
 
-hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
-adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
-#print(adj_matrix)
-num_of_rows=4
-MapResults=[-1,4,1,10,3]
-
-routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResults)
+    routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResults)
 
 
 

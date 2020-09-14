@@ -4,7 +4,7 @@ import random
 
 #import gym  
 import numpy as np
-
+import time
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -13,19 +13,12 @@ from torch.distributions import Categorical
 
 import matplotlib.pyplot as plt
 import time
-from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic
+from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic,Get_detailed_data,Get_rand_computation_ability
 from queue import Queue
 
-part_Route=[2, 3, [1, 'E'], [2, 'S'], [6, 'S']]
+import datetime
 
-route=[[1, 'E'], [2, 'S'], [6, 'S']]
 
-for rt in route:
-    print(rt)
-    if(rt in part_Route):
-        print(1)
-    else:
-        print(0)
 
 
 """
@@ -78,8 +71,15 @@ print("test tmp",tmp,type(tmp))
 log_prob=dist.log_prob(action)
 print(log_prob,log_prob.shape)
 """
+hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
+print(num_of_tasks)
+adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
 
-#hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
+print(adj_matrix)
+print(execution)
+print(total_needSend)
+print(total_needReceive)
+
 
 
 

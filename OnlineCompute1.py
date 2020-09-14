@@ -57,14 +57,17 @@ class onlineTimeline:
     
 
         self.nowTime = 0
+        self.num_of_tasks=0
 
         self.fullRouteFromRL=[]#(task_source,task_dest)表示从task_source到task_dest的route全部是由RL计算的
         self.partRouteFromRL=[]#前两个元素i，j表示在计算从task_i到task_j的出边，之后的元素就是json里的route格式，如[0, "S"]，当前位置+下一步移动方向
         self.pendTimes=0#由RL计算的路径导致推迟的次数
 
-    def loadGraphByDict(self,taskGraph1,MapResult1,fullRouteFromRL1,partRouteFromRL1):
-        tmp_taskgraph=copy.deepcopy(taskGraph1)
-        for i in range(1,len(tmp_taskgraph)+1):
+    def loadGraphByDict(self,taskGraph1,MapResult1,fullRouteFromRL1,partRouteFromRL1,num_of_tasks):
+        tmp_taskgraph=copy.deepcopy(taskGraph1)#task graph里的task下标是不连续的
+        self.num_of_tasks=num_of_tasks
+        #print(tmp_taskgraph)
+        for i in range(1,num_of_tasks+1):
             if(str(i) in tmp_taskgraph.keys()):
                 self.sendMatrix.append(tmp_taskgraph[str(i)]['total_needSend'])
                 self.receiveMatrix.append(tmp_taskgraph[str(i)]['total_needReceive'])
@@ -77,23 +80,23 @@ class onlineTimeline:
                 self.sendMatrix.append(0)
                 self.receiveMatrix.append(0)
                 self.exeMatric.append(0)
-                self.stateMatrix.append(0)
+                self.stateMatrix.append(3)
         self.taskGraph = tmp_taskgraph
         self.MapResult = MapResult1
         self.fullRouteFromRL=fullRouteFromRL1
         self.partRouteFromRL=partRouteFromRL1
         self.stateMatrix[1]=1
         """
-        print("task graph loaded++++++++++++++++++++++")
         print("sendMatric",self.sendMatrix)
         print("receiveMatric",self.receiveMatrix)
         print("exeMatric",self.exeMatric)
         print("taskGraph",self.taskGraph)
         print("MapResult",self.MapResult)
+        print("stateMatric,",self.stateMatrix)
         print("fullRouteFromRL",self.fullRouteFromRL)
         print("partRouteFromRL",self.partRouteFromRL)
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
         """
+        
         
     def loadGraph(self):
         with open(self.inputfile+"taskGraph.json","r") as f:
@@ -138,7 +141,7 @@ class onlineTimeline:
 
     def findStartExe(self):
         exeThisTime=[]
-        for i in range(1,len(self.taskGraph)+1):
+        for i in range(1,self.num_of_tasks+1):
             if(self.receiveMatrix[i]==0 and self.exeMatric[i]!=0):
                 exeThisTime.append(i)
         return exeThisTime
@@ -182,7 +185,7 @@ class onlineTimeline:
 
     def findStartSend(self):
         sendThisTime=[]
-        for i in range(1,len(self.taskGraph)+1):
+        for i in range(1,self.num_of_tasks+1):
             if(self.sendMatrix[i]!=0 and self.exeMatric[i]==0 and self.stateMatrix[i]!=3):
                 sendThisTime.append(i)
         return sendThisTime

@@ -57,7 +57,7 @@ def init(filename):
     # Build a computation matrix
     comp_cost = {}
     line = f.readline()
-    while line.startswith('\t'):
+    while line.startswith('\t') or line.startswith('    '):
         comp_cost.update({int(line.split()[0]):int(line.split()[1])})
         line = f.readline()
     #for key in comp_cost.keys():
@@ -248,7 +248,7 @@ def check_if_Done(state,source_position,dest_position,num_of_rows,task_graph,ful
         #print("C_fullRoute:",fullRouteFromRL)
         #print("C_partRoute:",partRoute_to_onlineCompute)
         #print("C_computing:",task_graph)
-        task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute)
+        task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute,len(MapResult)-1)
         pendTimes=task.computeTime()
         #print("C_pendTimes",pendTimes)
         """
@@ -262,7 +262,7 @@ def check_if_Done(state,source_position,dest_position,num_of_rows,task_graph,ful
 
 #state为[state_tensor,cur_position,partRouteFromRL]，传进来的partRoute的格式是直接的路由表，没有第一位第二位的task
 def Environment(state,action,source_position,dest_position,num_of_rows,task_graph,fullRouteFromRL,task_source,task_dest,MapResult):#用于获得next_state，reward，done，除了state和action，剩下的参数都是为了传进onlineCompute
-    next_state_tensor=torch.Tensor(np.zeros((1,4,4*4),dtype=np.int))
+    next_state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
     next_state_tensor.copy_(state[0])
     next_position=-1
     next_partRoute=copy.deepcopy(state[2])
@@ -320,7 +320,7 @@ def Environment(state,action,source_position,dest_position,num_of_rows,task_grap
         #print("fullRoute:",fullRouteFromRL)
         #print("partRoute:",partRoute_to_onlineCompute)
         #print("computing:",task_graph)
-        task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute)
+        task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute,len(MapResult)-1)
         pendTimes=task.computeTime()
         #print("pendTimes",pendTimes)
         """
@@ -381,6 +381,10 @@ class Critic(nn.Module):
     
     def forward(self, X):
         return self.model(X).squeeze(0).squeeze(0)
+
+def Get_rand_computation_ability(num_of_rows):
+    ret=np.random.randint(1,5,(num_of_rows,num_of_rows))
+    return ret
 
 if __name__ == '__main__':
     hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
