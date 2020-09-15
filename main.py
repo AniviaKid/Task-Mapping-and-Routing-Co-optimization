@@ -82,6 +82,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
     tmp_reward=-999999999
     cur_task_graph={}
     for i in neighborhood: #visit all neighborhood and find the fittest one in these neighborhoods
+        print("neighborhood:",i)
         flag=False
         for j in Tabu_list:
             source=j.split()[0]
@@ -116,8 +117,9 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
             #print("j=",j)
             execution_to_routing[j]=int(execution_to_routing[j]/computation_ability[int(tmp_mapresults1[j]/num_of_rows)][tmp_mapresults1[j]%num_of_rows])
         routing_reward,ret_task_graph=routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
+        #print(ret_task_graph)
         reward+=routing_reward
-        print("reward=",reward)
+        #print("reward=",reward)
 
         if(reward>tmp_reward):
             tmp_reward=reward
@@ -172,5 +174,6 @@ print("Best reward=",Best_reward)
 f = open("./ret.txt", 'w+')
 print(Tasks_position_best_solution,file=f)
 print(best_task_graph,file=f)
+print(computation_ability,file=f)
 f.close()
 print("done")

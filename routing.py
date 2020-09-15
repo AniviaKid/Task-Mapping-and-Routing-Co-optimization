@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from libs import init,Get_Neighborhood,Get_mapping_reward,Get_detailed_data,find_start_task,get_sorted_dict,ActorCritic,Get_full_route_by_XY,Get_reward_by_pendTimes,Environment,check_if_Done,Actor,Critic
 from queue import Queue
 from OnlineCompute1 import onlineTimeline
+import copy
 
 
 
@@ -28,27 +29,39 @@ from OnlineCompute1 import onlineTimeline
 
 def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
     start_task_list=find_start_task(adj_matrix,num_of_tasks)#入度为0的点的集合
+    #print("start_task_list=",start_task_list)
     task_graph={}
     fullRouteFromRL=[]#(task_source,task_dest)表示从task_source到task_dest的route全部是由RL计算的
+    adj_matrix_tmp=copy.deepcopy(adj_matrix)
     
 
     use_cuda = torch.cuda.is_available()
     device   = torch.device("cuda" if use_cuda else "cpu")
 
+    visited={}
+
+
     for start_task in start_task_list:
+        #print("start at ",start_task)
         q=Queue(maxsize=0)
         q.put(start_task)
         while(q.empty()!=True):#BFS
             u=q.get()
+            #print("we get u=",u,"now queue is ",q.queue)
             adj_u={}#task_dest - send_size，用于排序寻找用时最短的任务
             for i in range(1,num_of_tasks+1):
-                if(adj_matrix[u][i]!=0):
-                    adj_u[i]=adj_matrix[u][i]
-                    adj_matrix[u][i]=0
+                if(adj_matrix_tmp[u][i]!=0):
+                    adj_u[i]=adj_matrix_tmp[u][i]#加入待处理队列
+                    adj_matrix_tmp[u][i]=0
             adj_u=sorted(adj_u.items(), key=lambda x:x[1])#最短任务优先
+            #print("u=",u,"adj_u:",adj_u)
             for i in adj_u:
-                print("visit edge",u,"to",i[0],"size=",i[1])
+                if(u in visited.keys() and visited[u]==i[0]):
+                    #print("this edge ",u,"to",i[0],"has visited")
+                    continue
+                #print("visit edge",u,"to",i[0],"size=",i[1])
                 q.put(i[0])
+                #print(i[0],' is pushed')
                 #向task graph中添加task u, task i[0], 以及边u->i[0]
                 if(str(u) not in task_graph.keys()):#task u不在task graph中
                     task_graph.update({str(u):{'total_needSend':i[1],'out_links':[[str(i[0]),i[1],[],0,0,-1]],'total_needReceive':0,'exe_time':execution[u]}})
@@ -86,7 +99,7 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
                 best_Route=[]
                 best_reward=-99999
                 for kkk in range(100):
-                    print("iteration in RL is ",kkk,"edge=",u,"->",i[0])
+                    #print("iteration in RL is ",kkk,"edge=",u,"->",i[0])
                     done=False
                     total_reward=0
                     state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
@@ -129,6 +142,7 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
                         task_graph[str(u)]['out_links'][j][2]=best_Route
                 #print(get_sorted_dict(task_graph))
                 fullRouteFromRL.append((u,i[0]))
+                visited.update({u:i[0]})
 
 
                 

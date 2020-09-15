@@ -1,2 +1,6 @@
-{0: 38, 1: 2, 2: 22, 3: 30, 4: 23, 5: 25, 6: 12, 7: 13, 8: 1, 9: 28, 10: 34, 11: 10}
-{}
+{0: 5, 1: 0, 2: 15, 3: 13}
+{'1': {'total_needSend': 30, 'out_links': [['3', 30, [[5, 'E'], [6, 'S'], [10, 'S'], [14, 'E']], 0, 0, -1]], 'total_needReceive': 0, 'exe_time': 12}, '2': {'total_needSend': 30, 'out_links': [['3', 30, [[0, 'E'], [1, 'S'], [5, 'S'], [9, 'E'], [10, 'E'], [11, 'S']], 0, 0, -1]], 'total_needReceive': 0, 'exe_time': 12}, '3': {'total_needSend': 70, 'out_links': [['4', 70, [[15, 'W'], [14, 'W']], 0, 0, -1]], 'total_needReceive': 60, 'exe_time': 15}, '4': {'total_needSend': 0, 'out_links': [], 'total_needReceive': 70, 'exe_time': 10}}
+[[4 3 3 2]
+ [2 4 3 3]
+ [4 3 3 1]
+ [2 2 3 4]]
