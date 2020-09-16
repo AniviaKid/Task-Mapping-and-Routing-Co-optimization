@@ -1,6 +1,10 @@
-{0: 5, 1: 0, 2: 15, 3: 13}
-{'1': {'total_needSend': 30, 'out_links': [['3', 30, [[5, 'E'], [6, 'S'], [10, 'S'], [14, 'E']], 0, 0, -1]], 'total_needReceive': 0, 'exe_time': 12}, '2': {'total_needSend': 30, 'out_links': [['3', 30, [[0, 'E'], [1, 'S'], [5, 'S'], [9, 'E'], [10, 'E'], [11, 'S']], 0, 0, -1]], 'total_needReceive': 0, 'exe_time': 12}, '3': {'total_needSend': 70, 'out_links': [['4', 70, [[15, 'W'], [14, 'W']], 0, 0, -1]], 'total_needReceive': 60, 'exe_time': 15}, '4': {'total_needSend': 0, 'out_links': [], 'total_needReceive': 70, 'exe_time': 10}}
-[[4 3 3 2]
- [2 4 3 3]
- [4 3 3 1]
- [2 2 3 4]]
+{0: 29, 1: 28, 2: 38, 3: 14, 4: 63, 5: 28, 6: 18, 7: 49, 8: 52, 9: 33, 10: 21, 11: 18}
+{'1': {'total_needSend': 190, 'out_links': [['2', 190, [[29, 'W']], 0, 0, -1]], 'total_needReceive': 0, 'exe_time': 117}, '2': {'total_needSend': 750, 'out_links': [['8', 60, [[28, 'W'], [27, 'W'], [26, 'S'], [34, 'S'], [42, 'W'], [41, 'S']], 0, 0, -1], ['4', 70, [[28, 'E'], [29, 'N'], [21, 'E'], [22, 'N']], 0, 0, -1], ['7', 70, [[28, 'N'], [20, 'W'], [19, 'W']], 0, 0, -1], ['10', 80, [[28, 'S'], [36, 'W'], [35, 'W'], [34, 'W']], 0, 0, -1], ['9', 100, [[28, 'S'], [36, 'S'], [44, 'S']], 0, 0, -1], ['11', 100, [[28, 'N'], [20, 'E']], 0, 0, -1], ['6', 130, [], 0, 0, -1], ['5', 140, [[28, 'E'], [29, 'E'], [30, 'E'], [31, 'S'], [39, 'S'], [47, 'S'], [55, 'S']], 0, 0, -1]], 'total_needReceive': 190, 'exe_time': 1024}, '3': {'total_needSend': 210, 'out_links': [['12', 210, [[38, 'N'], [30, 'N'], [22, 'W'], [21, 'W'], [20, 'W'], [19, 'W']], 0, 0, -1]], 'total_needReceive': 540, 'exe_time': 144}, '4': {'total_needSend': 70, 'out_links': [['3', 70, [[14, 'S'], [22, 'S'], [30, 'S']], 0, 0, -1]], 'total_needReceive': 70, 'exe_time': 16}, '5': {'total_needSend': 70, 'out_links': [['3', 70, [[63, 'W'], [62, 'N'], [54, 'N'], [46, 'N']], 0, 0, -1]], 'total_needReceive': 140, 'exe_time': 48}, '6': {'total_needSend': 40, 'out_links': [['3', 40, [[28, 'S'], [36, 'E'], [37, 'E']], 0, 0, -1]], 'total_needReceive': 130, 'exe_time': 283}, '7': {'total_needSend': 90, 'out_links': [['3', 90, [[18, 'S'], [26, 'S'], [34, 'E'], [35, 'E'], [36, 'E'], [37, 'E']], 0, 0, -1]], 'total_needReceive': 70, 'exe_time': 553}, '8': {'total_needSend': 50, 'out_links': [['3', 50, [[49, 'N'], [41, 'N'], [33, 'E'], [34, 'E'], [35, 'E'], [36, 'E'], [37, 'E']], 0, 0, -1]], 'total_needReceive': 60, 'exe_time': 135}, '9': {'total_needSend': 100, 'out_links': [['3', 100, [[52, 'E'], [53, 'E'], [54, 'N'], [46, 'N']], 0, 0, -1]], 'total_needReceive': 100, 'exe_time': 527}, '10': {'total_needSend': 40, 'out_links': [['3', 40, [[33, 'E'], [34, 'E'], [35, 'E'], [36, 'E'], [37, 'E']], 0, 0, -1]], 'total_needReceive': 80, 'exe_time': 171}, '11': {'total_needSend': 80, 'out_links': [['3', 80, [[21, 'E'], [22, 'S'], [30, 'S']], 0, 0, -1]], 'total_needReceive': 100, 'exe_time': 250}, '12': {'total_needSend': 0, 'out_links': [], 'total_needReceive': 210, 'exe_time': 488}}
+[[4 1 3 4 2 4 1 2]
+ [1 3 1 3 2 1 4 2]
+ [4 1 1 3 2 2 2 2]
+ [4 3 2 4 2 3 4 4]
+ [4 3 3 3 4 1 4 2]
+ [3 4 4 4 1 1 2 4]
+ [1 4 3 4 1 3 1 1]
+ [1 4 2 3 2 1 4 1]]

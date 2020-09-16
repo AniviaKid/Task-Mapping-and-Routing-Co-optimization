@@ -71,8 +71,10 @@ print("test tmp",tmp,type(tmp))
 log_prob=dist.log_prob(action)
 print(log_prob,log_prob.shape)
 """
-visited=np.zeros(5+1,dtype=np.int)
-print(visited)
+hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
+adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+print(num_of_tasks)
+print(adj_matrix)
 
 
 

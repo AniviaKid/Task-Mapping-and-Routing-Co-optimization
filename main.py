@@ -35,7 +35,7 @@ Tasks_position_current_solution={}#key-value: key=task, value=position in mesh
 PEs_task_best_solution=copy.deepcopy(PEs_task_current_solution)
 Tasks_position_best_solution=copy.deepcopy(Tasks_position_current_solution)
 best_task_graph={}
-Best_reward=0
+Best_reward=-999999999
 
 Tabu_list=[]
 Tabu_length=2
@@ -76,7 +76,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
     #print("Randomly choose:"," task ",randomly_selected_task)
     current_position=Tasks_position_current_solution[randomly_selected_task]
     neighborhood=Get_Neighborhood(current_position,radius,M,N)
-    #print("Neighborhood:",neighborhood)
+    #print("Full Neighborhood:",neighborhood)
     #print("------------")
     target_position=-1
     tmp_reward=-999999999
@@ -101,13 +101,14 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
         tmp_solution[current_position].remove(randomly_selected_task)
         tmp_solution[i].append(randomly_selected_task)
         reward=Get_mapping_reward(tmp_solution,computation_ability,M,N)
+        print("mapping_reward:",reward)
 
         tmp_mapresults=copy.deepcopy(Tasks_position_current_solution)
         tmp_mapresults.update({randomly_selected_task:i})
         tmp_mapresults1=[-1]#把task编号改成从1开始，然后传给routing部分
         for j in range(0,num_of_tasks):
             tmp_mapresults1.append(tmp_mapresults[j])
-        #print("map_result=",tmp_mapresults1)
+        #print("tmp_map_result=",tmp_mapresults1)
         #通过RL计算最佳routing，然后获得routing的reward
         #首先根据MapResult更新execution
         execution_to_routing=copy.deepcopy(execution)
@@ -118,6 +119,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
             execution_to_routing[j]=int(execution_to_routing[j]/computation_ability[int(tmp_mapresults1[j]/num_of_rows)][tmp_mapresults1[j]%num_of_rows])
         routing_reward,ret_task_graph=routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
         #print(ret_task_graph)
+        print("routing_reward:",routing_reward)
         reward+=routing_reward
         #print("reward=",reward)
 
@@ -160,6 +162,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
     
 total_start_time=time.time()
 Initialization(num_of_tasks)
+#print(Tasks_position_current_solution)
 for i in range(0,100):
     print("Iteration ",i,":")
     iteration_start_time=time.time()
