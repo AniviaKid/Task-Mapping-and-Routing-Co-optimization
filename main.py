@@ -101,7 +101,8 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
         tmp_solution[current_position].remove(randomly_selected_task)
         tmp_solution[i].append(randomly_selected_task)
         reward=Get_mapping_reward(tmp_solution,computation_ability,M,N)
-        print("mapping_reward:",reward)
+        reward=reward*10#mapping reward的数量级与routing的相差过大
+        #print("mapping_reward:",reward)
 
         tmp_mapresults=copy.deepcopy(Tasks_position_current_solution)
         tmp_mapresults.update({randomly_selected_task:i})
@@ -119,7 +120,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
             execution_to_routing[j]=int(execution_to_routing[j]/computation_ability[int(tmp_mapresults1[j]/num_of_rows)][tmp_mapresults1[j]%num_of_rows])
         routing_reward,ret_task_graph=routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
         #print(ret_task_graph)
-        print("routing_reward:",routing_reward)
+        #print("routing_reward:",routing_reward)
         reward+=routing_reward
         #print("reward=",reward)
 
@@ -134,6 +135,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
     Tasks_position_current_solution.update({randomly_selected_task:target_position})
     #print("target position:",target_position)
     #print("------------")
+    print("reward in this iteration is ",tmp_reward)
   
     #update the best solution
     global Best_reward
