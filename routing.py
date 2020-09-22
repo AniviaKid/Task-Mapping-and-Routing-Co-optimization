@@ -11,7 +11,7 @@ import torch.nn.functional as F
 from torch.distributions import Categorical
 
 import matplotlib.pyplot as plt
-from libs import init,Get_Neighborhood,Get_mapping_reward,Get_detailed_data,find_start_task,get_sorted_dict,ActorCritic,Get_full_route_by_XY,Get_reward_by_pendTimes,Environment,check_if_Done,Actor,Critic
+from libs import init,Get_Neighborhood,Get_detailed_data,find_start_task,get_sorted_dict,ActorCritic,Get_full_route_by_XY,Get_reward_by_pendTimes,Environment,check_if_Done,Actor,Critic
 from queue import Queue
 from OnlineCompute1 import onlineTimeline
 import copy
@@ -153,7 +153,8 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
     #print(task_graph)
     task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,[-1,-1],num_of_tasks)
     pendTimes=task.computeTime()
-    return Get_reward_by_pendTimes(pendTimes),task_graph
+    #return Get_reward_by_pendTimes(pendTimes),task_graph
+    return pendTimes,task_graph
 
 
     

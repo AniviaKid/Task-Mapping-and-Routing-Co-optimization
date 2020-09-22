@@ -13,7 +13,7 @@ from torch.distributions import Categorical
 
 import matplotlib.pyplot as plt
 import time
-from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic,Get_detailed_data,Get_rand_computation_ability
+from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic,Get_detailed_data,Get_rand_computation_ability2,Get_mapping_exe_time
 from queue import Queue
 
 import datetime
@@ -71,10 +71,21 @@ print("test tmp",tmp,type(tmp))
 log_prob=dist.log_prob(action)
 print(log_prob,log_prob.shape)
 """
-hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
+hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor_AIR1.tgff')
 adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+computation_ability=Get_rand_computation_ability2(num_of_rows=4)#2的指数级，4/8/16
+Tasks_position_current_solution={0: 4, 1: 6, 2: 6, 3: 6, 4: 11, 5: 6, 6: 6, 7: 2, 8: 13, 9: 8, 10: 1, 11: 5}
+PEs_task_current_solution=[]
+for i in range(0,4*4):
+    PEs_task_current_solution.append([])
+for i in Tasks_position_current_solution.keys():
+    PEs_task_current_solution[Tasks_position_current_solution[i]].append(i)
 print(num_of_tasks)
 print(adj_matrix)
+print(execution)
+print(computation_ability)
+ret=Get_mapping_exe_time(PEs_task_current_solution,Tasks_position_current_solution,computation_ability,4,execution)
+print(ret)
 
 
 

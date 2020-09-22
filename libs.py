@@ -79,11 +79,21 @@ def Get_Neighborhood(position,radius,M,N): #return a list which consists of posi
                     neighborhood.append(i*N+j)
     return neighborhood
 
-def Get_mapping_reward(PEs_task_current_solution,computation_ability,M,N):
+def Get_mapping_exe_time(PEs_task_current_solution,Tasks_position_current_solution,computation_ability,num_of_rows,execution):
+    num_of_tasks=len(execution)-1
+    ret_execution=copy.deepcopy(execution)
+    for i in Tasks_position_current_solution.keys():#首先计算是否有task被匹配到同一个PE，有的话添加惩罚，但是如果是这同一个PE上有任务图中同一条边上的两个task，意思就是它们一定不同时运行，这个时候不计算惩罚
+        position=Tasks_position_current_solution[i]
+        if(len(PEs_task_current_solution[position])>1):
+            ret_execution[i+1]=ret_execution[i+1]*len(PEs_task_current_solution[position])
+
+    #然后根据运行能力倍减运行时间
+    for i in Tasks_position_current_solution.keys():
+        position=Tasks_position_current_solution[i]
+        ret_execution[i+1]=int(ret_execution[i+1]/computation_ability[int(position/num_of_rows)][position%num_of_rows])
     ret=0
-    for i in range(0,len(PEs_task_current_solution)):
-        if(len(PEs_task_current_solution[i])): #this PE has tasks
-            ret+=computation_ability[int(i/N)][i%N]
+    for i in ret_execution:
+        ret+=i
     return ret
 
 def Get_detailed_data(num_of_tasks,edges,comp_cost):#输出邻接矩阵,total_needSend,total_needReceive,execution
@@ -190,8 +200,7 @@ def Get_full_route_by_XY(part_route,source_position,dest_position,num_of_rows):
     return ret
     
 def Get_reward_by_pendTimes(pendTimes):
-    #pendTimes<=7时才能得到非负的reward
-    return 7-pendTimes
+    return 0-pendTimes
 
 
 #state为[state_tensor,cur_position,partRouteFromRL]，传进来的partRoute的格式是直接的路由表，没有第一位第二位的task
@@ -384,6 +393,13 @@ class Critic(nn.Module):
 
 def Get_rand_computation_ability(num_of_rows):
     ret=np.random.randint(1,5,(num_of_rows,num_of_rows))
+    return ret
+
+def Get_rand_computation_ability2(num_of_rows):
+    ret=np.full((num_of_rows,num_of_rows),0.5)
+    for i in range(0,num_of_rows*num_of_rows):
+        random_choose=np.random.randint(0,num_of_rows*num_of_rows)
+        ret[int(random_choose/num_of_rows)][int(random_choose%num_of_rows)]+=0.5
     return ret
 
 if __name__ == '__main__':
