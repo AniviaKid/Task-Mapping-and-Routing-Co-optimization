@@ -17,9 +17,20 @@ from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic,Get_
 from queue import Queue
 
 import datetime
+#from MyOnlineCompute import onlineTimeline
 
-
-
+"""
+task_graph={"1": {"total_needSend": 3, "out_links": [["2", 2, [], 0, 0, -1], ["3", 1, [[0, "S"]], 1, 2, 1]], "total_needReceive": 0, "exe_time": 1}, "2": {"total_needSend": 7, "out_links": [["4", 3, [[0, "E"]], 4, 7, 2], ["5", 4, [], 0, 0, -1]], "total_needReceive": 2, "exe_time": 3}, "3": {"total_needSend": 2, "out_links": [["6", 2, [], 0, 0, -1]], "total_needReceive": 1, "exe_time": 2}, "4": {"total_needSend": 2, "out_links": [["7", 2, [], 0, 0, -1]], "total_needReceive": 3, "exe_time": 5}, "5": {"total_needSend": 2, "out_links": [["7", 2, [[0, "E"]], 6, 8, 3]], "total_needReceive": 4, "exe_time": 2}, "6": {"total_needSend": 1, "out_links": [["7", 1, [[2, "N"], [0, "E"]], 6, 7, 4]], "total_needReceive": 2, "exe_time": 4}, "7": {"total_needSend": 0, "out_links": [], "total_needReceive": 5, "exe_time": 1}}
+"""
+task_graph={"1": {"total_needSend": 2, "out_links": [["2", 2, [[1,'E'],[2,'E']], 0, 0, -1]], "total_needReceive": 0, "exe_time": 1}, "2": {"total_needSend": 0, "out_links": [], "total_needReceive": 2, "exe_time": 3},"4": {"total_needSend": 2, "out_links": [["5", 2, [[2,'S'],[6,'E']], 0, 0, -1]], "total_needReceive": 0, "exe_time": 5}, "5": {"total_needSend": 0, "out_links": [], "total_needReceive": 2, "exe_time": 2}}
+MapResult=[-1, 1, 3, 5, 2, 7, 0, 11]
+#test=onlineTimeline("",4)
+#test.loadGraphByDict(task_graph,MapResult,[],[0,0],7)
+test=[('2,3',20),('1,4',50),('5,6',10)]
+#test.sort(key=lambda x: x[1])
+test.pop(0)
+test.pop(0)
+print(test)
 
 """
 task_graph={'1': {'total_needSend': 48, 'out_links': [['2', 48, [], 0, 0, -1]], 'total_needReceive': 0, 'exe_time': 10}, '2': {'total_needSend': 0, 'out_links': [], 'total_needReceive': 48, 'exe_time': 10}}
@@ -71,6 +82,8 @@ print("test tmp",tmp,type(tmp))
 log_prob=dist.log_prob(action)
 print(log_prob,log_prob.shape)
 """
+
+"""
 hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor_AIR1.tgff')
 adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
 computation_ability=Get_rand_computation_ability2(num_of_rows=4)#2的指数级，4/8/16
@@ -86,6 +99,7 @@ print(execution)
 print(computation_ability)
 ret=Get_mapping_exe_time(PEs_task_current_solution,Tasks_position_current_solution,computation_ability,4,execution)
 print(ret)
+"""
 
 
 

@@ -402,6 +402,49 @@ def Get_rand_computation_ability2(num_of_rows):
         ret[int(random_choose/num_of_rows)][int(random_choose%num_of_rows)]+=0.5
     return ret
 
+def Get_link_connection_by_index(index,num_of_rows):#link的编号从0开始
+    a=int(index/(2*num_of_rows-1))
+    b=index%(2*num_of_rows-1)
+    first_PE=-1
+    second_PE=-1
+    if(b<num_of_rows-1):#横着的link
+        first_PE=a*num_of_rows+b
+        second_PE=first_PE+1
+    else:#竖着的link
+        b-=(num_of_rows-1)
+        first_PE=a*num_of_rows+b
+        second_PE=first_PE+num_of_rows
+    return first_PE,second_PE
+
+
+
+"""
+for i in self.edge_set[current_edge[0]]['used_link']:#检查这条边用过的link
+    for j in self.link_set[i].timeline:#检查这条link的时间轴
+        if(current_end_time_of_source+current_transmission>j[2] and current_end_time_of_source+current_transmission<j[3]):#目标区间右侧落在了当前检测到的区间里，冲突
+            contended_link.append(i)
+            contended_timeInterval_index.append(self.link_set[i].timeline.index(j))
+        elif(current_end_time_of_source>j[2] and current_end_time_of_source<j[3]):#目标区间左侧落在了当前检测到的区间里，冲突
+            contended_link.append(i)
+            contended_timeInterval_index.append(self.link_set[i].timeline.index(j))
+        elif(current_end_time_of_source<j[2] and current_end_time_of_source+current_transmission>j[3]):#目标区间包括了当前检测到的区间，冲突
+            contended_link.append(i)
+            contended_timeInterval_index.append(self.link_set[i].timeline.index(j))
+"""
+#检查在used_link中，给定的时间区间是否有冲突
+#返回是否有争用，哪一条link有争用，这条link在哪个时间段发生了争用
+def Check_contention(used_link,link_set,start_time,end_time):
+    for i in used_link:
+        for j in link_set[i].timeline:
+            if(end_time>j[2] and end_time<j[3]):
+                return False,i,link_set[i].timeline.index(j)
+            elif(start_time>j[2] and start_time<j[3]):
+                return False,i,link_set[i].timeline.index(j)
+            elif(start_time<j[2] and end_time>j[3]):
+                return False,i,link_set[i].timeline.index(j)
+    
+    return True,-1,-1
+
 if __name__ == '__main__':
     hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
     adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
@@ -410,3 +453,4 @@ if __name__ == '__main__':
     print(total_needReceive)
     print(execution)
     print(find_start_task(adj_matrix,num_of_tasks))
+    
