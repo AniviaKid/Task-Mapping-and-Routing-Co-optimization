@@ -402,48 +402,165 @@ def Get_rand_computation_ability2(num_of_rows):
         ret[int(random_choose/num_of_rows)][int(random_choose%num_of_rows)]+=0.5
     return ret
 
-def Get_link_connection_by_index(index,num_of_rows):#link的编号从0开始
-    a=int(index/(2*num_of_rows-1))
-    b=index%(2*num_of_rows-1)
-    first_PE=-1
-    second_PE=-1
-    if(b<num_of_rows-1):#横着的link
-        first_PE=a*num_of_rows+b
-        second_PE=first_PE+1
-    else:#竖着的link
-        b-=(num_of_rows-1)
-        first_PE=a*num_of_rows+b
-        second_PE=first_PE+num_of_rows
-    return first_PE,second_PE
 
 
-
-"""
-for i in self.edge_set[current_edge[0]]['used_link']:#检查这条边用过的link
-    for j in self.link_set[i].timeline:#检查这条link的时间轴
-        if(current_end_time_of_source+current_transmission>j[2] and current_end_time_of_source+current_transmission<j[3]):#目标区间右侧落在了当前检测到的区间里，冲突
-            contended_link.append(i)
-            contended_timeInterval_index.append(self.link_set[i].timeline.index(j))
-        elif(current_end_time_of_source>j[2] and current_end_time_of_source<j[3]):#目标区间左侧落在了当前检测到的区间里，冲突
-            contended_link.append(i)
-            contended_timeInterval_index.append(self.link_set[i].timeline.index(j))
-        elif(current_end_time_of_source<j[2] and current_end_time_of_source+current_transmission>j[3]):#目标区间包括了当前检测到的区间，冲突
-            contended_link.append(i)
-            contended_timeInterval_index.append(self.link_set[i].timeline.index(j))
-"""
+#improved版新添加的函数
 #检查在used_link中，给定的时间区间是否有冲突
 #返回是否有争用，哪一条link有争用，这条link在哪个时间段发生了争用
 def Check_contention(used_link,link_set,start_time,end_time):
     for i in used_link:
         for j in link_set[i].timeline:
-            if(end_time>j[2] and end_time<j[3]):
+            if(end_time>j[0] and end_time<j[1]):
                 return False,i,link_set[i].timeline.index(j)
-            elif(start_time>j[2] and start_time<j[3]):
+            elif(start_time>j[0] and start_time<j[1]):
                 return False,i,link_set[i].timeline.index(j)
-            elif(start_time<j[2] and end_time>j[3]):
+            elif(start_time<j[0] and end_time>j[1]):
+                return False,i,link_set[i].timeline.index(j)
+            elif(start_time == j[0]):#目标区间起点与当前检测的区间起点相同，冲突
+                return False,i,link_set[i].timeline.index(j)
+            elif(end_time == j[1]):#目标区间终点与当前检测的区间终点相同，冲突
                 return False,i,link_set[i].timeline.index(j)
     
     return True,-1,-1
+
+def Get_link_index_by_route(route,num_of_rows):#根据route（如[6,"S"]）返回link的编号
+    tmp_row=int(route[0]/num_of_rows)
+    tmp_col=route[0]%num_of_rows
+    if(route[1]=='N'):
+        tmp_row-=1
+        return (2*num_of_rows-1)*tmp_row+(num_of_rows-1)+tmp_col
+    elif(route[1]=='S'):
+        return (2*num_of_rows-1)*tmp_row+(num_of_rows-1)+tmp_col
+    elif(route[1]=='W'):
+        return (2*num_of_rows-1)*tmp_row+(tmp_col-1)
+    elif(route[1]=='E'):
+        return (2*num_of_rows-1)*tmp_row+tmp_col
+
+        
+def computeContention(partRoute,link_set,num_of_rows,start_time,transmission):
+    used_link=[]
+    for i in partRoute:
+        used_link.append(Get_link_index_by_route(i,num_of_rows))
+    contentious_link=[]
+    contentious_timeline_index=[]
+    end_time=start_time+transmission
+    for i in used_link:
+        for j in link_set[i].timeline:#检查这条link的时间轴
+            if(end_time>j[0] and end_time<j[1]):#目标区间右侧落在了当前检测到的区间里，冲突
+                contentious_link.append(i)
+                contentious_timeline_index.append(link_set[i].timeline.index(j))
+            elif(start_time>j[0] and start_time<j[1]):#目标区间左侧落在了当前检测到的区间里，冲突
+                contentious_link.append(i)
+                contentious_timeline_index.append(link_set[i].timeline.index(j))
+            elif(start_time<j[0] and end_time>j[1]):#目标区间包括了当前检测到的区间，冲突
+                contentious_link.append(i)
+                contentious_timeline_index.append(link_set[i].timeline.index(j))
+            elif(start_time == j[0]):#目标区间起点与当前检测的区间起点相同，冲突
+                contentious_link.append(i)
+                contentious_timeline_index.append(link_set[i].timeline.index(j))
+            elif(end_time == j[1]):#目标区间终点与当前检测的区间终点相同，冲突
+                contentious_link.append(i)
+                contentious_timeline_index.append(link_set[i].timeline.index(j))
+    
+    if(len(contentious_link)==0):#这个route没有任何争用
+        return 0
+    else:#这个route有争用，需要计算参数T
+        T_=0
+        max_end_time=0
+        for i in range(0,len(contentious_link)):#寻找争用过的link的最大结束时间
+            if(link_set[ contentious_link[i] ].timeline[ contentious_timeline_index[i] ][1] > max_end_time):
+                max_end_time=link_set[ contentious_link[i] ].timeline[ contentious_timeline_index[i] ][1]
+        T_=max_end_time-start_time#设置T值的初始值，然后还需要检测这个T是否可以使得这条边传输
+        flag_contention,link_index,timeline_index=Check_contention(used_link,link_set,start_time+T_,end_time+T_)
+        while(flag_contention==False):#增加T后依然发生争用，还需要继续增大T
+            T_=link_set[link_index].timeline[timeline_index][1]-start_time
+            flag_contention,link_index,timeline_index=Check_contention(used_link,link_set,start_time+T_,end_time+T_)
+        return T_
+
+def Update_link_set(partRoute,link_set,num_of_rows,start_time,end_time):#在link_set上预约[start_time,end_time]的时间
+    used_link=[]
+    for i in partRoute:
+        used_link.append(Get_link_index_by_route(i,num_of_rows))
+
+    
+    for i in used_link:#遍历要使用的link
+        if(len(link_set[i].timeline)==0):#这条link的时间轴为空
+            link_set[i].timeline.append([start_time,end_time])
+        for j in range(0,len(link_set[i].timeline)):#遍历这条link的timeline
+            if(end_time <= link_set[i].timeline[j][0]):#放在这个区间的左边
+                link_set[i].timeline.insert(j,[start_time,end_time])
+                break
+            elif(start_time >= link_set[i].timeline[j][1]):#放在这个区间的右边
+                if( j == (len(link_set[i].timeline)-1) ):#最后一位，append即可
+                    link_set[i].timeline.append([start_time,end_time])
+                else:
+                    link_set[i].timeline.insert(j+1,[start_time,end_time])
+                break
+
+
+#这里reward返回的是-contention，需要再考虑一下
+def Check_if_Done_improved(state,source_position,dest_position,link_set,num_of_rows,start_time,end_time):#state为[state_tensor,cur_position,partRoute],这里的partRoute是直接的路由表，如[[0,'S'],[4,'E']]
+    cur_row=int(state[1]/num_of_rows)
+    cur_col=state[1]%num_of_rows
+    dest_row=int(dest_position/num_of_rows)
+    dest_col=dest_position%num_of_rows
+
+    if(cur_row==dest_row or cur_col==dest_col):#结束，需要使用XY routing补全路由，并且计算contention
+        full_Route=Get_full_route_by_XY(state[2],source_position,dest_position,num_of_rows)
+        contention=computeContention(full_Route,link_set,num_of_rows,start_time,end_time-start_time)
+        return [0,dest_position,full_Route],-1*contention,True
+    else:
+        return [],0,False
+
+#这里reward返回的是-contention，需要再考虑一下
+def Environment_improved(state,action,source_position,dest_position,link_set,num_of_rows,start_time,end_time):
+    next_state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
+    next_state_tensor.copy_(state[0])
+    next_position=-1
+    next_partRoute=copy.deepcopy(state[2])
+
+    #执行action前
+    cur_row=int(state[1]/num_of_rows)
+    cur_col=state[1]%num_of_rows
+    dest_row=int(dest_position/num_of_rows)
+    dest_col=dest_position%num_of_rows
+    
+    #RL学习之前check一次，就能确保起码能走一步
+
+    #开始执行action
+    #state_tensor的四个channel,从0-3以此为N,S,W,E
+    if(action==0):#沿x轴走
+        if(cur_col<dest_col):
+            next_state_tensor[0][3][cur_row*num_of_rows+cur_col]=1#更新tensor
+            next_partRoute.append([cur_row*num_of_rows+cur_col,'E'])#更新路由表
+            cur_col+=1#向East走了一步
+        elif(cur_col>dest_col):
+            next_state_tensor[0][2][cur_row*num_of_rows+cur_col]=1#更新tensor
+            next_partRoute.append([cur_row*num_of_rows+cur_col,'W'])#更新路由表
+            cur_col-=1#向West走了一步
+    elif(action==1):#沿y轴走
+        if(cur_row<dest_row):
+            next_state_tensor[0][1][cur_row*num_of_rows+cur_col]=1#更新tensor
+            next_partRoute.append([cur_row*num_of_rows+cur_col,'S'])#更新路由表
+            cur_row+=1#向South走了一步
+        elif(cur_row>dest_row):
+            next_state_tensor[0][0][cur_row*num_of_rows+cur_col]=1#更新tensor
+            next_partRoute.append([cur_row*num_of_rows+cur_col,'N'])#更新路由表
+            cur_row-=1#向North走了一步
+    
+    next_position=cur_row*num_of_rows+cur_col
+
+    ret_state,ret_reward,done=Check_if_Done_improved([next_state_tensor,next_position,next_partRoute],source_position,dest_position,link_set,num_of_rows,start_time,end_time)
+
+    if(done==True):
+        return ret_state,ret_reward,done
+    else:
+        contention=computeContention(next_partRoute,link_set,num_of_rows,start_time,end_time-start_time)
+        return [next_state_tensor,next_position,next_partRoute],-1*contention,False
+
+
+
+
 
 if __name__ == '__main__':
     hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')

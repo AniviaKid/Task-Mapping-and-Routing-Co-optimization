@@ -8,7 +8,7 @@ import pylab
 import numpy as np
 import logging, sys
 import copy
-from libs import Get_link_connection_by_index,Check_contention
+from libs import Check_contention
 import queue
 
 
@@ -643,8 +643,8 @@ class onlineTimeline:
                             break
                 max_end_time=0
                 for i in range(0,len(contended_timeInterval_index)):#寻找争用过的link的最大结束时间
-                    if(self.link_set[ contended_link[i] ].timeline[ contended_timeInterval_index[i][3] ] > max_end_time):
-                        max_end_time=self.link_set[ contended_link[i] ].timeline[ contended_timeInterval_index[i][3] ]
+                    if(self.link_set[ contended_link[i] ].timeline[ contended_timeInterval_index[i] ][3] > max_end_time):
+                        max_end_time=self.link_set[ contended_link[i] ].timeline[ contended_timeInterval_index[i] ][3]
                 T_=max_end_time-current_end_time_of_source#设置T值的初始值，然后还需要检测这个T是否可以使得这条边传输的时候不争用
                 flag_contention,link_index,timeInterval_index=Check_contention(self.edge_set[current_edge[0]]['used_link'],self.link_set,current_end_time_of_source+T_,current_end_time_of_source+T_+current_transmission)
                 while(flag_contention==False):#增加T后依然发生争用，还需要继续增大T
