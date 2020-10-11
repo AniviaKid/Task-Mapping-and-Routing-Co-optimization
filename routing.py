@@ -185,9 +185,9 @@ def improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResul
     #添加一开始就能执行的边
     for i in range(1,num_of_tasks+1):
         if(receiveMatrix[i]==0):#这个task可以立刻执行，然后开始传输
-            for j in range(1,num_of_tasks):
+            for j in range(1,num_of_tasks+1):
                 if(adj_matrix[i][j]!=0):
-                    tmp=(str(i)+','+j,execution[i])
+                    tmp=(str(i)+','+str(j),execution[i])
                     edge_queue.append(tmp)
     edge_queue.sort(key=lambda x: x[1])#按照task_source的结束时间排序
 
@@ -201,8 +201,8 @@ def improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResul
     while(len(edge_queue)!=0):
         current_edge=edge_queue[0]
         edge_queue.pop(0)
-        current_source_task=int(current_edge[0][0])
-        current_dest_task=int(current_edge[0][2])
+        current_source_task=int(current_edge[0].split(',')[0])
+        current_dest_task=int(current_edge[0].split(',')[1])
         start_time=current_edge[1]#这条边的预计传输开始时间，也就是source_task的预计结束时间
         current_transmission=adj_matrix[current_source_task][current_dest_task]
         end_time=start_time+current_transmission#这条边的预计传输结束时间，也就是dest_task的预计开始时间
@@ -218,11 +218,12 @@ def improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResul
 
         #开始为边current_source_task->current_dest_task计算路由
         #state_tensor的四个channel,从0-3以此为N,S,W,E
+        print("now visit edge:",current_source_task,"->",current_dest_task)
         state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int)).to(device)
         state=[state_tensor,MapResult[current_source_task],[]]#state为[state_tensor,cur_position,partRoute]
         best_Route=[]#这条边的最佳路由
         #确保当前的state(map后的位置)不是end state，至少能执行一次action
-        tmp_state,tmp_reward,tmp_done=Check_if_Done_improved(state,MapResult[current_source_task],MapResult[current_dest_task],link_set,num_of_rows,start_time,end_time)
+        tmp_state,_,tmp_done=Check_if_Done_improved(state,MapResult[current_source_task],MapResult[current_dest_task],link_set,num_of_rows,start_time,end_time)
         if(tmp_done):#这两个task的位置无需计算route，直接结束，将结果存储到best_Route
             best_Route=tmp_state[2]
         else:#需要进行RL学习来计算best_Route
@@ -299,13 +300,15 @@ def improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResul
 
 if __name__ == '__main__':
 
-    hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor_AIR1.tgff')
+    hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N4_test.tgff')
     adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
     #print(adj_matrix)
     num_of_rows=4
-    MapResults=[-1,4,1,10,3]
+    MapResult=[-1,5,11,2,15]
 
-    print(improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResults))
+    contention,task_graph=improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult)
+    print(contention)
+    print(task_graph)
 
 
 

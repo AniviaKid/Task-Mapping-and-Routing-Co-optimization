@@ -17,6 +17,7 @@ from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic,Get_
 from queue import Queue
 
 import datetime
+from routing import improved_routeCompute
 #from MyOnlineCompute import onlineTimeline
 
 """
@@ -30,6 +31,10 @@ class link_item():#可以根据在list中的下标索引到它连接的是哪两
 
 MapResult=[-1,5,11,3,15]
 num_of_rows=4
+
+edge='100,204'
+print(type(edge.split(',')))
+"""
 link_set=[]
 total_link_num=(num_of_rows-1+num_of_rows)*(num_of_rows-1)+num_of_rows-1
 for i in range(0,total_link_num):
@@ -48,5 +53,5 @@ T_1_3=computeContention(edge_1_3_route,link_set,num_of_rows,0,30)
 Update_link_set(edge_1_3_route,link_set,num_of_rows,T_1_3,30+T_1_3)
 start_time_of_3=30+T_1_3
 print(computeContention(edge_3_4_route,link_set,num_of_rows,start_time_of_3,start_time_of_3+20))
-
+"""
 

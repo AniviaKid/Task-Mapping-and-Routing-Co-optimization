@@ -500,15 +500,35 @@ def Update_link_set(partRoute,link_set,num_of_rows,start_time,end_time):#在link
 
 #这里reward返回的是-contention，需要再考虑一下
 def Check_if_Done_improved(state,source_position,dest_position,link_set,num_of_rows,start_time,end_time):#state为[state_tensor,cur_position,partRoute],这里的partRoute是直接的路由表，如[[0,'S'],[4,'E']]
+    next_state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int))
+    next_state_tensor.copy_(state[0])
     cur_row=int(state[1]/num_of_rows)
     cur_col=state[1]%num_of_rows
     dest_row=int(dest_position/num_of_rows)
     dest_col=dest_position%num_of_rows
 
-    if(cur_row==dest_row or cur_col==dest_col):#结束，需要使用XY routing补全路由，并且计算contention
+    if(cur_row==dest_row or cur_col==dest_col):#结束，需要使用XY routing补全路由，更新tensor，并且计算contention
+        #更新tensor
+        if(cur_row==dest_row and cur_col==dest_col):#考虑到一开始两个task就被map到同一个PE的情况
+            pass
+        elif(cur_row==dest_row):
+            if(cur_col<dest_col):#向East走
+                for i in range(cur_col,dest_col):#更新tensor
+                    next_state_tensor[0][3][cur_row*num_of_rows+i]=1
+            else:#向West走
+                for i in range(cur_col,dest_col,-1):#更新tensor
+                    next_state_tensor[0][2][cur_row*num_of_rows+i]=1
+        elif(cur_col==dest_col):
+            if(cur_row<dest_row):#向South走
+                for i in range(cur_row,dest_row):#更新tensor
+                    next_state_tensor[0][1][i*num_of_rows+cur_col]=1
+            else:#向North走
+                for i in range(cur_row,dest_row,-1):
+                    next_state_tensor[0][0][i*num_of_rows+cur_col]=1
+        #补全路由，计算contention
         full_Route=Get_full_route_by_XY(state[2],source_position,dest_position,num_of_rows)
         contention=computeContention(full_Route,link_set,num_of_rows,start_time,end_time-start_time)
-        return [0,dest_position,full_Route],-1*contention,True
+        return [next_state_tensor,dest_position,full_Route],-1*contention,True
     else:
         return [],0,False
 

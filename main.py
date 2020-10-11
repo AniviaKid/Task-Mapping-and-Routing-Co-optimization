@@ -2,7 +2,7 @@ import numpy as np
 import json
 from libs import init,Get_Neighborhood,Get_mapping_exe_time,Get_detailed_data,Get_rand_computation_ability2
 import copy
-from routing import routeCompute
+from routing import routeCompute,improved_routeCompute
 import time
 
 #M*N 2D-mesh
@@ -104,7 +104,9 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
         execution_to_routing=copy.deepcopy(execution)
         for j in range(1,num_of_tasks+1):
             execution_to_routing[j]=int(execution_to_routing[j]/computation_ability[int(tmp_mapresults1[j]/num_of_rows)][tmp_mapresults1[j]%num_of_rows])
-        pendTimes,ret_task_graph=routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
+        #计算路由
+        #pendTimes,ret_task_graph=routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
+        pendTimes,ret_task_graph=improved_routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
         total=mapping_exe_time+pendTimes#这个值应该是越小越好，第一个值小表示mapping结果匹配到的PE计算能力强，第二个值小表示routing中争用少
 
         if(total<tmp_reward):
