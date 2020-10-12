@@ -218,7 +218,7 @@ def improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResul
 
         #开始为边current_source_task->current_dest_task计算路由
         #state_tensor的四个channel,从0-3以此为N,S,W,E
-        print("now visit edge:",current_source_task,"->",current_dest_task)
+        #print("now visit edge:",current_source_task,"->",current_dest_task)
         state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int)).to(device)
         state=[state_tensor,MapResult[current_source_task],[]]#state为[state_tensor,cur_position,partRoute]
         best_Route=[]#这条边的最佳路由
