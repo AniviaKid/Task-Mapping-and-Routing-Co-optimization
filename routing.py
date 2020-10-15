@@ -234,7 +234,7 @@ def improved_routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResul
             gamma=0.99
             
             best_reward=-9999999
-            for _ in range(100):
+            for _ in range(200):
                 done=False
                 total_reward=0
                 state_tensor=torch.Tensor(np.zeros((1,4,num_of_rows*num_of_rows),dtype=np.int)).to(device)

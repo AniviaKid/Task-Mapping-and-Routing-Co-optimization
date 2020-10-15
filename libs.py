@@ -79,7 +79,7 @@ def Get_Neighborhood(position,radius,M,N): #return a list which consists of posi
                     neighborhood.append(i*N+j)
     return neighborhood
 
-def Get_mapping_exe_time(PEs_task_current_solution,Tasks_position_current_solution,computation_ability,num_of_rows,execution):
+def Get_mapping_exe_time(PEs_task_current_solution,Tasks_position_current_solution,computation_ability,num_of_rows,execution):#传进来的computation_ability是CVB_method生成的矩阵
     num_of_tasks=len(execution)-1
     ret_execution=copy.deepcopy(execution)
     for i in Tasks_position_current_solution.keys():#首先计算是否有task被匹配到同一个PE，有的话添加惩罚，但是如果是这同一个PE上有任务图中同一条边上的两个task，意思就是它们一定不同时运行，这个时候不计算惩罚
@@ -90,7 +90,9 @@ def Get_mapping_exe_time(PEs_task_current_solution,Tasks_position_current_soluti
     #然后根据运行能力倍减运行时间
     for i in Tasks_position_current_solution.keys():
         position=Tasks_position_current_solution[i]
-        ret_execution[i+1]=int(ret_execution[i+1]/computation_ability[int(position/num_of_rows)][position%num_of_rows])
+        #ret_execution[i+1]=int(ret_execution[i+1]/computation_ability[int(position/num_of_rows)][position%num_of_rows])
+        ret_execution[i+1]=computation_ability[i][position]
+
     ret=0
     for i in ret_execution:
         ret+=i
@@ -580,14 +582,43 @@ def Environment_improved(state,action,source_position,dest_position,link_set,num
 
 
 
+def CVB_method(execution,V_machine,num_of_rows):#execution里的task编号从0开始，没有多余的数据
+    num_of_tasks=len(execution)
+    mean_task=np.mean(execution)
+    std_task=np.std(execution,ddof=1)
+    V_task=std_task/mean_task
+    #print("V_task=",V_task)
+    #print("mean_task=",mean_task)
+    alpha_task=1/(V_task*V_task)
+    alpha_machine=1/(V_machine*V_machine)
+    beta_task=mean_task/alpha_task
+    #print("alpha_task=",alpha_task)
+    #print("beta_task=",beta_task)
+    beta_machine=[]
+    q=[]
+    e=np.zeros(shape=(num_of_tasks,num_of_rows*num_of_rows),dtype=np.int)
+    for i in range(0,num_of_tasks):
+        q.append(np.random.gamma(shape=alpha_task,scale=beta_task))
+        #print("i=",i,"q[i]=",q[i])
+        beta_machine.append(q[i]/alpha_machine)
+        #print("i=",i,"beta_machine[i]=",beta_machine[i])
+        for j in range(0,num_of_rows*num_of_rows):
+            e[i][j]=int(np.random.gamma(shape=alpha_machine,scale=beta_machine[i]))
+    return e
+
+
 
 
 if __name__ == '__main__':
     hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
     adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+    """
     print(adj_matrix)
     print(total_needSend)
     print(total_needReceive)
     print(execution)
     print(find_start_task(adj_matrix,num_of_tasks))
+    """
+    print(execution[1:])
+    print(CVB_method(execution=execution[1:],V_machine=0.5,num_of_rows=4))
     

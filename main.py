@@ -1,6 +1,6 @@
 import numpy as np
 import json
-from libs import init,Get_Neighborhood,Get_mapping_exe_time,Get_detailed_data,Get_rand_computation_ability2
+from libs import init,Get_Neighborhood,Get_mapping_exe_time,Get_detailed_data,Get_rand_computation_ability2,CVB_method
 import copy
 from routing import routeCompute,improved_routeCompute
 import time
@@ -13,14 +13,19 @@ computation_ability=np.array([
  [3, 3, 1, 2],
  [1, 3, 2, 2]])
  """
-computation_ability=Get_rand_computation_ability2(num_of_rows=8)#2的指数级，4/8/16
+#computation_ability=Get_rand_computation_ability2(num_of_rows=8)#2的指数级，4/8/16
 
-M=computation_ability.shape[0]
-N=computation_ability.shape[1]
+
+#M=computation_ability.shape[0]
+#N=computation_ability.shape[1]
+M=8#num_of_rows
+N=8#num_of_rows
 
 #init input
-hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor_AIR1.tgff')
+hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
 adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+
+computation_ability=CVB_method(execution=execution[1:],V_machine=0.5,num_of_rows=N)
 
 
 
@@ -103,7 +108,8 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
         #首先根据MapResult更新execution
         execution_to_routing=copy.deepcopy(execution)
         for j in range(1,num_of_tasks+1):
-            execution_to_routing[j]=int(execution_to_routing[j]/computation_ability[int(tmp_mapresults1[j]/num_of_rows)][tmp_mapresults1[j]%num_of_rows])
+            #execution_to_routing[j]=int(execution_to_routing[j]/computation_ability[int(tmp_mapresults1[j]/num_of_rows)][tmp_mapresults1[j]%num_of_rows])
+            execution_to_routing[j]=computation_ability[j-1][tmp_mapresults1[j]]
         #计算路由
         #pendTimes,ret_task_graph=routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
         pendTimes,ret_task_graph=improved_routeCompute(adj_matrix,num_of_tasks,execution_to_routing,num_of_rows,tmp_mapresults1)
@@ -146,7 +152,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
 total_start_time=time.time()
 Initialization(num_of_tasks)
 #print(Tasks_position_current_solution)
-for i in range(0,100):
+for i in range(0,200):
     print("Iteration ",i,":")
     iteration_start_time=time.time()
     Iteration(num_of_tasks,1,N)
