@@ -152,7 +152,7 @@ def Iteration(num_of_tasks,radius,num_of_rows): #expand neighborhood, find the f
 total_start_time=time.time()
 Initialization(num_of_tasks)
 #print(Tasks_position_current_solution)
-for i in range(0,200):
+for i in range(0,150):
     print("Iteration ",i,":")
     iteration_start_time=time.time()
     Iteration(num_of_tasks,1,N)

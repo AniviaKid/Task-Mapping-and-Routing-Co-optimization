@@ -598,7 +598,8 @@ def CVB_method(execution,V_machine,num_of_rows):#execution里的task编号从0�
     q=[]
     e=np.zeros(shape=(num_of_tasks,num_of_rows*num_of_rows),dtype=np.int)
     for i in range(0,num_of_tasks):
-        q.append(np.random.gamma(shape=alpha_task,scale=beta_task))
+        #q.append(np.random.gamma(shape=alpha_task,scale=beta_task))
+        q.append(execution[i])
         #print("i=",i,"q[i]=",q[i])
         beta_machine.append(q[i]/alpha_machine)
         #print("i=",i,"beta_machine[i]=",beta_machine[i])
