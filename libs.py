@@ -620,6 +620,6 @@ if __name__ == '__main__':
     print(execution)
     print(find_start_task(adj_matrix,num_of_tasks))
     """
-    print(execution[1:])
-    print(CVB_method(execution=execution[1:],V_machine=0.5,num_of_rows=4))
+    #print(execution[1:])
+    #print(CVB_method(execution=execution[1:],V_machine=0.5,num_of_rows=4))
     
