@@ -1,3 +1,8 @@
+@HYPERPERIOD 31200
+
+@TASK_GRAPH 0 {
+	PERIOD 31200
+
 	TASK t0_0	TYPE 0
 	TASK t0_1	TYPE 1
 	TASK t0_2	TYPE 2
@@ -125,7 +130,7 @@
 	HARD_DEADLINE d0_0 ON t0_29 AT 10000
 	HARD_DEADLINE d0_0 ON t0_33 AT 20000
 	HARD_DEADLINE d0_0 ON t0_50 AT 30000
-
+}
 
 #------------------------------------------------------------------------------
 # type	exec_time

@@ -608,18 +608,48 @@ def CVB_method(execution,V_machine,num_of_rows):#execution里的task编号从0�
     return e
 
 
+def read_NoC(NoC_file_name):
+    ret=[]
+    f=open(NoC_file_name)
+    for line in f:
+        tmp=[]
+        for i in line[1:-2].split(','):
+            tmp.append(int(i))
+        ret.append(tmp)
+    return ret
+
+
+def init_from_json(input_json_file):
+    task_graph={}
+    with open(input_json_file,"r") as f:
+        task_graph=json.load(f)
+    num_of_tasks=len(task_graph)
+
+    adj_matrix=np.zeros((num_of_tasks+1,num_of_tasks+1),dtype=np.int)#task从1开始算
+    total_needSend=np.zeros(num_of_tasks+1,dtype=np.int)#task从1开始算的
+    total_needReceive=np.zeros(num_of_tasks+1,dtype=np.int)#task从1开始算的
+    execution=np.zeros(num_of_tasks+1,dtype=np.int)#task从1开始算的
+
+    for i in task_graph.keys():#json里的task的序号是从0开始的
+        total_needSend[int(i)+1]=task_graph[i]['total_needSend']
+        total_needReceive[int(i)+1]=task_graph[i]['total_needReceive']
+        execution[int(i)+1]=task_graph[i]['exe_time']
+        for j in task_graph[i]['out_links']:
+            adj_matrix[int(i)+1][int(j[0][0])+1]=int(j[0][1])
+    
+    return adj_matrix,total_needSend,total_needReceive,execution
+
 
 
 if __name__ == '__main__':
-    hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
-    adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
-    """
+    #hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
+    adj_matrix,total_needSend,total_needReceive,execution=init_from_json('./AIRfile/Autocor_Mesh8x8_AIR1_basic.json')
+    
     print(adj_matrix)
     print(total_needSend)
     print(total_needReceive)
     print(execution)
-    print(find_start_task(adj_matrix,num_of_tasks))
-    """
+    
     #print(execution[1:])
     #print(CVB_method(execution=execution[1:],V_machine=0.5,num_of_rows=4))
     

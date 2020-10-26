@@ -1,0 +1,1 @@
+Put the json files to be processed in this path, then run handle_output.py. The modified json is in the 'gem5_pending_results_month_day' folder.
