@@ -1,0 +1,89 @@
+% Front Matters
+% Labels : 1) All labels starts with fig, table, algo, eqn
+% 2) use relative directory. current file name. name 
+% fig:wdcdf.thesis.algo.tex.flow_chart
+%
+
+% define the following before \input this tex
+% \newcommand{\numcol}{2}
+\newcommand{\checkOneCol}{\ifthenelse{\numcol = 1}}
+
+\newcommand{\tablefont}{\small}
+
+% Wrapping functions 
+\newcommand{\wchapter}{\chapter}
+\newcommand{\wsection}{\section}
+\newcommand{\wsubsection}{\subsection}
+\newcommand{\wsubsubsection}{\subsubsection}
+
+% -- abstract
+\newcommand{\wabstract} {\begin{abstract}}
+\newcommand{\wendabstract} {\end{abstract}}
+
+% -- mathematics
+\newcommand{\weqnarray}{\begin{eqnarray}}
+\newcommand{\wendeqnarray} {\end{eqnarray}}
+\newcommand{\waligneqnarray}{\begin{align}}
+\newcommand{\walignendeqnarray} {\end{align}}
+
+% -- lines
+\newcommand{\emptyline}{\noindent\newline}
+\newcommand{\emptyindentline}{\emptyline\indent}
+
+% -- table
+\newcommand{\wtable}{\begin{table}}
+\newcommand{\wendtable}{\end{table}}
+
+% -- figure
+\newcommand{\wfigure}{\begin{figure}}
+\newcommand{\wendfigure}{\end{figure}}
+
+% -- list
+\newcommand{\wlist}{\begin{itemize}}
+\newcommand{\wendlist}{\end{itemize}}
+\newcommand{\wdesc}{\begin{description}}
+\newcommand{\wenddesc}{\end{description}}
+
+% -- Number List
+\newcommand{\wnumlist}{\begin{enumerate}}
+\newcommand{\wendnumlist}{\end{enumerate}}
+
+% String declaration for references
+\newcommand{\lfig}{Fig.}
+\newcommand{\ltable}{Table}
+\newcommand{\lalgo}{Algorithm}
+\newcommand{\leqn}{Eqn.}
+\newcommand{\llemma}{Lemma}
+\newcommand{\lcorollary}{Corollary}
+\newcommand{\ltheorem}{Theorem}
+\newcommand{\ldef}{Def.}
+\newcommand{\lsection}{Section}
+\newcommand{\lchapter}{Chapter}
+\newcommand{\lappendix}{Appendix}
+\newcommand{\lexample}{Example}
+\newcommand{\lcase}{Case}
+%
+% Format for mathematics
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{example} {Example}
+\newtheorem{case} {Case}
+%
+\newcommand{\wtheorem}{\begin{theorem}}
+\newcommand{\wendtheorem}{\end{theorem}}
+\newcommand{\wlemma}{\begin{lemma}}
+\newcommand{\wendlemma}{\end{lemma}}
+\newcommand{\wcorollary}{\begin{corollary}}
+\newcommand{\wendcorollary}{\end{corollary}}
+\newcommand{\wdefinition}{\begin{definition}}
+\newcommand{\wenddefinition}{\end{definition}}
+\newcommand{\wexample}{\begin{example}}
+\newcommand{\wendexample}{\end{example}}
+\newcommand{\wproof}{\begin{proof}}
+\newcommand{\wendproof}{\end{proof}}
+\newcommand{\wcase}{\begin{case}}
+\newcommand{\wendcase}{\end{case}}
+%\renewcommand{\QED}{\QEDopen}
+%

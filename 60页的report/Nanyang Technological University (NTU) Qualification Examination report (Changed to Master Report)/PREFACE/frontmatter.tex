@@ -1,0 +1,57 @@
+% ---------------------------------------------------------------------------- %
+% Front Matters
+% ---------------------------------------------------------------------------- %
+% ---------------------------------------------------------------------------- %
+% Acknowledgement
+% ---------------------------------------------------------------------------- %
+% ---------------------------------------------------------------------------- %
+% Abstract
+% ---------------------------------------------------------------------------- %
+
+\setsinglespace
+\begin{nabstract}
+\input{PREFACE/abstract.tex}
+\newpage
+\end{nabstract}
+
+\setonehalfspace
+\addcontentsline{toc}{section}{Table of Contents}
+\tableofcontents
+\listoffigures
+\listoftables
+\begin{table}
+    \caption{Notations Used in This Paper}
+    \renewcommand{\arraystretch}{1.0}
+    \arrayrulewidth=0.85pt
+    \tabcolsep 3pt
+    \centering
+    \footnotesize
+    \begin{tabular}[c]{c  c}
+        \hline
+        \hline
+        {\bf Notation }&\bf{Description}\\
+        \hline
+        $\mathcal{V}, \mathcal{E}$ &  The set of tasks nodes and edges. \\
+        $m,p,l$ & The set of message, packet and flit. \\
+        $|.|$ & The number of elements.\\
+        $\mathcal{A}$& The set of processing elements. \\
+        $\tau_{v,a}$& $=q_v/ep_a$. The execution time of $v$ on $a$. \\
+        $\mathcal{F},\mathcal{G}$& The mapping and routing algorithm. \\
+        $\gamma_m$& The route to transmit data of message $m$. \\
+        ${L}$ & The latency related to transmission. \\
+        % ${L}_{head},{L}_{tail}$ & The latency for head and tail filts.\\
+        $E$ & The energy used for transmission.\\
+        $t_r, t_w$ & The router-stage latency and propagation delay.\\
+        $\mathcal{M},\mathcal{R}$& The mapping and routing result \\
+        $\mathcal{M}(t)$& Processing element mapped to task $t$ \\
+        \hline
+        
+    \hline
+    \end{tabular}
+    \label{notations}
+
+\end{table}
+
+\newpage
+\startarabicpagination
+%END

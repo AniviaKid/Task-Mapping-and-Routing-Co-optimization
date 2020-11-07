@@ -1,0 +1,18 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces big.LITTLE architecture}}{4}% 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces The main process of Tabu search}}{7}% 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Expand Neighborhood}}{8}% 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Example for explaining tabu list}}{9}% 
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {state 1}}}{9}% 
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {state 2}}}{9}% 
+\contentsline {figure}{\numberline {4.5}{\ignorespaces How agent and environment interact}}{11}% 
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Timeline of multiple time steps}}{12}% 
+\contentsline {figure}{\numberline {4.7}{\ignorespaces An example for the disadvantage in Monte Carlo}}{14}% 
+\contentsline {figure}{\numberline {4.8}{\ignorespaces The structure of Actor-Critic}}{18}% 
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Different route for same start and end points}}{20}% 
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Routing algorithm}}{22}% 
+\addvspace {10\p@ }
+\addvspace {10\p@ }

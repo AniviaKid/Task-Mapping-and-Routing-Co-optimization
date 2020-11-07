@@ -13,7 +13,7 @@ from torch.distributions import Categorical
 
 import matplotlib.pyplot as plt
 import time
-from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic,Get_detailed_data,Get_rand_computation_ability2,Get_mapping_exe_time,computeContention,Get_link_index_by_route,Update_link_set
+#from libs import init,Get_full_route_by_XY,Environment,check_if_Done,Critic,Get_detailed_data,Get_rand_computation_ability2,Get_mapping_exe_time,computeContention,Get_link_index_by_route,Update_link_set
 from queue import Queue
 
 import datetime
@@ -29,17 +29,10 @@ class link_item():#可以根据在list中的下标索引到它连接的是哪两
         #记录这个link的timeline，list中的每个元素是list，形式为[task_source,task_dest,start_time,end_time]
         self.timeline=[]
 
-MapResult=[-1,5,11,3,15]
-num_of_rows=4
-
-num=[[1,2],[3,4]]
-print("[")
-for i in num:
-    print("[",end="")
-    for j in i:
-        print(j,end=",")
-    print("]")
-print("]")
+a=10
+b=4
+c=a/b
+print(c,type(c))
 """
 link_set=[]
 total_link_num=(num_of_rows-1+num_of_rows)*(num_of_rows-1)+num_of_rows-1

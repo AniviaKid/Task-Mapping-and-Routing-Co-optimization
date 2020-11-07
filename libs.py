@@ -4,7 +4,6 @@ import sys
 import getopt
 import json
 import math
-import networkx as nx
 import pylab
 import logging, sys
 
@@ -18,7 +17,6 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.distributions import Categorical
 
-from OnlineCompute1 import onlineTimeline
 
 
 def init(filename):
@@ -204,7 +202,7 @@ def Get_full_route_by_XY(part_route,source_position,dest_position,num_of_rows):
 def Get_reward_by_pendTimes(pendTimes):
     return 0-pendTimes
 
-
+"""
 #state为[state_tensor,cur_position,partRouteFromRL]，传进来的partRoute的格式是直接的路由表，没有第一位第二位的task
 def check_if_Done(state,source_position,dest_position,num_of_rows,task_graph,fullRouteFromRL,task_source,task_dest,MapResult):#检查当前的state是否已经结束，结束了的话直接把end_state,reward,done=True返回
     next_state_tensor=state[0]
@@ -262,11 +260,11 @@ def check_if_Done(state,source_position,dest_position,num_of_rows,task_graph,ful
         task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute,len(MapResult)-1)
         pendTimes=task.computeTime()
         #print("C_pendTimes",pendTimes)
-        """
+        
         for j in task_graph.keys():
             for k in range(0,len(task_graph[j]['out_links'])):
                 task_graph[j]['out_links'][k]=task_graph[j]['out_links'][k][0:6]
-        """
+        
         #根据pendTimes计算reward
         return [next_state_tensor,next_position,next_partRoute],Get_reward_by_pendTimes(pendTimes),True
 
@@ -334,14 +332,14 @@ def Environment(state,action,source_position,dest_position,num_of_rows,task_grap
         task.loadGraphByDict(task_graph,MapResult,fullRouteFromRL,partRoute_to_onlineCompute,len(MapResult)-1)
         pendTimes=task.computeTime()
         #print("pendTimes",pendTimes)
-        """
+        
         for j in task_graph.keys():
             for k in range(0,len(task_graph[j]['out_links'])):
                 task_graph[j]['out_links'][k]=task_graph[j]['out_links'][k][0:6]
-        """
+        
         #根据pendTimes计算reward
         return [next_state_tensor,next_position,next_partRoute],Get_reward_by_pendTimes(pendTimes),False
-
+"""
 
 
 class ActorCritic(nn.Module):#输入：channel*length,4是channel,N是PE 输出：1*action_space和1*1
@@ -637,18 +635,30 @@ def init_from_json(input_json_file):
         for j in task_graph[i]['out_links']:
             adj_matrix[int(i)+1][int(j[0][0])+1]=int(j[0][1])
     
-    return adj_matrix,total_needSend,total_needReceive,execution
+    return adj_matrix,total_needSend,total_needReceive,execution,num_of_tasks
 
 
 
 if __name__ == '__main__':
-    #hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N12_autocor.tgff')
-    adj_matrix,total_needSend,total_needReceive,execution=init_from_json('./AIRfile/Autocor_Mesh8x8_AIR1_basic.json')
+    hyperperiod,num_of_tasks,edges,comp_cost=init('./task graph/N22_audiobeam.tgff')
+    adj_matrix,total_needSend,total_needReceive,execution=Get_detailed_data(num_of_tasks,edges,comp_cost)
+    #adj_matrix,total_needSend,total_needReceive,execution=init_from_json('./AIRfile/Autocor_Mesh8x8_AIR1_basic.json')
     
-    print(adj_matrix)
+    
+    #print(adj_matrix)
     print(total_needSend)
-    print(total_needReceive)
+    #print(total_needReceive)
     print(execution)
+    
+    exe_sum=0
+    send_sum=0
+    for i in range(1,num_of_tasks+1):
+        exe_sum+=execution[i]
+        send_sum+=total_needSend[i]
+    print(exe_sum,send_sum)
+    print(exe_sum/(exe_sum+send_sum))
+    print(send_sum/(exe_sum+send_sum))
+
     
     #print(execution[1:])
     #print(CVB_method(execution=execution[1:],V_machine=0.5,num_of_rows=4))

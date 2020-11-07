@@ -10,10 +10,9 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.distributions import Categorical
 
-import matplotlib.pyplot as plt
-from libs import init,Get_Neighborhood,Get_detailed_data,find_start_task,get_sorted_dict,ActorCritic,Get_full_route_by_XY,Get_reward_by_pendTimes,Environment,check_if_Done,Actor,Critic,computeContention,Update_link_set,Check_if_Done_improved,Environment_improved
+
+from libs import init,Get_Neighborhood,Get_detailed_data,find_start_task,get_sorted_dict,ActorCritic,Get_full_route_by_XY,Get_reward_by_pendTimes,Actor,Critic,computeContention,Update_link_set,Check_if_Done_improved,Environment_improved
 from queue import Queue
-from OnlineCompute1 import onlineTimeline
 import copy
 
 
@@ -26,7 +25,7 @@ import copy
 
 
 
-
+"""
 def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
     start_task_list=find_start_task(adj_matrix,num_of_tasks)#入度为0的点的集合
     #print("start_task_list=",start_task_list)
@@ -155,7 +154,7 @@ def routeCompute(adj_matrix,num_of_tasks,execution,num_of_rows,MapResult):
     pendTimes=task.computeTime()
     #return Get_reward_by_pendTimes(pendTimes),task_graph
     return pendTimes,task_graph
-
+"""
 
 class link_item():#可以根据在list中的下标索引到它连接的是哪两个PE
     def __init__(self):

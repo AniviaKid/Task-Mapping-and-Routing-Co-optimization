@@ -1,8 +1,8 @@
 import numpy as np
 import json
-from libs import init,Get_Neighborhood,Get_mapping_exe_time,Get_detailed_data,Get_rand_computation_ability2,CVB_method
+from libs import init,Get_Neighborhood,Get_mapping_exe_time,Get_detailed_data,Get_rand_computation_ability2,CVB_method,read_NoC,init_from_json
 import copy
-from routing import routeCompute,improved_routeCompute
+from routing import improved_routeCompute
 import time
 
 #M*N 2D-mesh

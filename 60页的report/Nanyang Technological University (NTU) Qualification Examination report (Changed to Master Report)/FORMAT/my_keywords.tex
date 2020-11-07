@@ -1,0 +1,62 @@
+% Keywords - consistency
+% -- Symbols used
+%    --- General
+\newcommand{\etal}{et al.}
+\newcommand{\ie}{i.e., }
+\newcommand{\eg}{e.g. }
+%
+%    --- Mathematics
+\newcommand{\setof}{\in}
+\newcommand{\what}{\widehat}
+\newcommand{\wtilde}{\widetilde}
+\newcommand{\sumAND}{\wedge}
+%
+%    --- DRR
+\newcommand{\PacketSize}{L}
+\newcommand{\MaxPacketSize}{\PacketSize^{MAX}}
+\newcommand{\MTUPacketSize}{\PacketSize^{MTU}}
+\newcommand{\MinPacketSize}{\PacketSize^{MIN}}
+\newcommand{\AvgPacketSize}{\PacketSize^{AVG}}
+\newcommand{\ReservedRate}{R}
+\newcommand{\MinReservedRate}{\ReservedRate^{MIN}}
+\newcommand{\SetOfReservedRate}{\mathbb{R}}
+\newcommand{\ServiceOffered}{S}
+\newcommand{\TotalServiceOffered}{\mathbb{S}}
+\newcommand{\ServiceRound}{\eta}
+\newcommand{\NumberServiceRound}{\nu}
+%
+%    --- Variables
+\newcommand{\varA}{i}
+\newcommand{\varB}{j}
+\newcommand{\varCondition}{\varepsilon}
+
+% --- TBF / Dual TBF
+\newcommand{\tbfBucket}{\sigma}
+\newcommand{\tbfM}{M}
+\newcommand{\tbfPeakrate}{\rho}
+\newcommand{\tbfRate}{r}
+\newcommand{\tbfspec}{($\tbfBucket$,$\tbfRate$,$\tbfPeakrate$,$\tbfM$)}
+%
+% DRR
+\newcounter{ifDRR}
+\newcommand{\spellDRR}{Deficit Round Robin}
+\newcommand{\abbrevDRR}{DRR}
+\newcommand{\DRR}{%
+\ifthenelse{\value{ifDRR}= 0}%
+{\spellDRR\  (\abbrevDRR) \cite{scheduler:drr}\setcounter{ifDRR}{1}}%
+{\abbrevDRR}%
+}
+% Goodput
+\newcounter{ifGOODPUT}
+\newcommand{\spellGOODPUT}{goodput}
+\newcommand{\goodput}{%
+\ifthenelse{\value{ifGOODPUT}=0}%
+{\spellGOODPUT\  
+\footnote{Goodput is the effective throughput, 
+as determined by the data successfully
+received and decoded at the receiver. }
+\setcounter{ifGOODPUT}{1}}%
+{\spellGOODPUT}%
+}
+%
+

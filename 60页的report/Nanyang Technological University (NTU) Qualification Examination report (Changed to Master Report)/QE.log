@@ -1,0 +1,560 @@
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.3.7)  8 NOV 2020 04:28
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**QE
+(./QE.tex
+LaTeX2e <2018-12-01>
+(./ntu_qe.cls
+Document Class: ntu_qe 2000/09/18 v1.1 Harvard University Thesis Class
+(c:/texlive/2019/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footers
+\f@nch@headwidth=\skip41
+\f@nch@O@elh=\skip42
+\f@nch@O@erh=\skip43
+\f@nch@O@olh=\skip44
+\f@nch@O@orh=\skip45
+\f@nch@O@elf=\skip46
+\f@nch@O@erf=\skip47
+\f@nch@O@olf=\skip48
+\f@nch@O@orf=\skip49
+) (./hut11.clo)
+\descriptionmargin=\dimen102
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\c@figure=\count87
+\c@table=\count88
+) (./NTUdis.sty) (c:/texlive/2019/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+) (c:/texlive/2019/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2019/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+) (c:/texlive/2019/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2019/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (c:/texlive/2019/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 99.
+ (c:/texlive/2019/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (c:/texlive/2019/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count89
+\float@exts=\toks15
+\float@box=\box27
+\@float@everytoks=\toks16
+\@floatcapt=\box28
+) (c:/texlive/2019/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+
+
+Package subfigure Warning: Your document class has a bad definition
+ of \endfigure, most likely
+ \let\endfigure=\end@float
+ which has now been changed to
+ \def\endfigure{\end@float}
+ because otherwise subsequent changes to \end@float
+ (like done by several packages changing float behaviour)
+ can't take effect on \endfigure.
+ Please complain to your document class author.
+
+
+Package subfigure Warning: Your document class has a bad definition
+ of \endtable, most likely
+ \let\endtable=\end@float
+ which has now been changed to
+ \def\endtable{\end@float}
+ because otherwise subsequent changes to \end@float
+ (like done by several packages changing float behaviour)
+ can't take effect on \endtable.
+ Please complain to your document class author.
+
+\subfigtopskip=\skip50
+\subfigcapskip=\skip51
+\subfigcaptopadj=\dimen105
+\subfigbottomskip=\skip52
+\subfigcapmargin=\dimen106
+\subfiglabelskip=\skip53
+\c@subfigure=\count90
+\c@lofdepth=\count91
+\c@subtable=\count92
+\c@lotdepth=\count93
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(c:/texlive/2019/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip54
+\subfig@bottom=\skip55
+) (c:/texlive/2019/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count94
+ (c:/texlive/2019/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\algocf@hangindent=\skip56
+ (c:/texlive/2019/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count95
+) (c:/texlive/2019/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+) (c:/texlive/2019/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip57
+\skiplinenumber=\skip58
+\skiprule=\skip59
+\skiphlne=\skip60
+\skiptext=\skip61
+\skiplength=\skip62
+\algomargin=\skip63
+\skipalgocfslide=\skip64
+\algowidth=\dimen107
+\inoutsize=\dimen108
+\inoutindent=\dimen109
+\interspacetitleruled=\dimen110
+\interspacealgoruled=\dimen111
+\interspacetitleboxruled=\dimen112
+\algocf@ruledwidth=\skip65
+\algocf@inoutbox=\box29
+\algocf@inputbox=\box30
+\AlCapSkip=\skip66
+\AlCapHSkip=\skip67
+\algoskipindent=\skip68
+\algocf@nlbox=\box31
+\algocf@hangingbox=\box32
+\algocf@untilbox=\box33
+\algocf@skipuntil=\skip69
+\algocf@capbox=\box34
+\algocf@lcaptionbox=\skip70
+\algoheightruledefault=\skip71
+\algoheightrule=\skip72
+\algotitleheightruledefault=\skip73
+\algotitleheightrule=\skip74
+\c@algocfline=\count96
+\c@algocfproc=\count97
+\c@algocf=\count98
+\algocf@algoframe=\box35
+\algocf@algobox=\box36
+) (c:/texlive/2019/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks17
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+) (c:/texlive/2019/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen113
+\lightrulewidth=\dimen114
+\cmidrulewidth=\dimen115
+\belowrulesep=\dimen116
+\belowbottomsep=\dimen117
+\aboverulesep=\dimen118
+\abovetopsep=\dimen119
+\cmidrulesep=\dimen120
+\cmidrulekern=\dimen121
+\defaultaddspace=\dimen122
+\@cmidla=\count99
+\@cmidlb=\count100
+\@aboverulesep=\dimen123
+\@belowrulesep=\dimen124
+\@thisruleclass=\count101
+\@lastruleclass=\count102
+\@thisrulewidth=\dimen125
+) (c:/texlive/2019/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+) (c:/texlive/2019/texmf-dist/tex/latex/supertabular/supertabular.sty
+Package: supertabular 2004/02/20 v4.1e the supertabular environment
+\c@tracingst=\count103
+\ST@wd=\dimen126
+\ST@rightskip=\skip75
+\ST@leftskip=\skip76
+\ST@parfillskip=\skip77
+\ST@pageleft=\dimen127
+\ST@headht=\dimen128
+\ST@tailht=\dimen129
+\ST@pagesofar=\dimen130
+\ST@pboxht=\dimen131
+\ST@lineht=\dimen132
+\ST@stretchht=\dimen133
+\ST@prevht=\dimen134
+\ST@toadd=\dimen135
+\ST@dimen=\dimen136
+\ST@pbox=\box37
+) (c:/texlive/2019/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
+\col@sep=\dimen137
+\ar@mcellbox=\box38
+\extrarowheight=\dimen138
+\NC@list=\toks18
+\extratabsurround=\skip78
+\backup@length=\skip79
+\ar@cellbox=\box39
+) (c:/texlive/2019/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2019/01/01 v2.4 Span multiple rows of a table
+\multirow@colwidth=\skip80
+\multirow@cntb=\count104
+\multirow@dima=\skip81
+\bigstrutjot=\dimen139
+) (c:/texlive/2019/texmf-dist/tex/latex/psfrag/psfrag.sty
+Package: psfrag 1998/04/11 v3.04 PSfrag (MCG)
+\pfg@pcount=\count105
+\pfg@scount=\count106
+\pfg@temp=\write3
+) (c:/texlive/2019/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2018/12/01 v2.17b AMS math features
+\@mathmargin=\skip82
+
+For additional information on amsmath, use the `?' option.
+(c:/texlive/2019/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+ (c:/texlive/2019/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks19
+\ex@=\dimen140
+)) (c:/texlive/2019/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen141
+) (c:/texlive/2019/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count107
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count108
+\leftroot@=\count109
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count110
+\DOTSCASE@=\count111
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box40
+\strutbox@=\box41
+\big@size=\dimen142
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count112
+\c@MaxMatrixCols=\count113
+\dotsspace@=\muskip10
+\c@parentequation=\count114
+\dspbrk@lvl=\count115
+\tag@help=\toks20
+\row@=\count116
+\column@=\count117
+\maxfields@=\count118
+\andhelp@=\toks21
+\eqnshift@=\dimen143
+\alignsep@=\dimen144
+\tagshift@=\dimen145
+\tagwidth@=\dimen146
+\totwidth@=\dimen147
+\lineht@=\dimen148
+\@envbody=\toks22
+\multlinegap=\skip83
+\multlinetaggap=\skip84
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
+) (c:/texlive/2019/texmf-dist/tex/latex/tools/hhline.sty
+Package: hhline 2014/10/28 v2.03 Table rule package (DPC)
+) (c:/texlive/2019/texmf-dist/tex/latex/type1cm/type1cm.sty
+Package: type1cm 2002/09/05 v0.04 BlueSky/Y&Y Type1 CM font definitions (DPC, patched RF)
+) (c:/texlive/2019/texmf-dist/tex/latex/lettrine/lettrine.sty
+File: lettrine.sty 2019-04-06 v2.22 (Daniel Flipo)
+ (c:/texlive/2019/texmf-dist/tex/generic/minifp/minifp.sty
+Package: minifp 2013/12/30 v0.96. Macros for real number operations and a stack-based programing language.
+\MFP@loopctr=\count119
+)
+\c@DefaultLines=\count120
+\c@DefaultDepth=\count121
+\DefaultFindent=\dimen149
+\DefaultNindent=\dimen150
+\DefaultSlope=\dimen151
+\DiscardVskip=\dimen152
+\L@lbox=\box42
+\L@tbox=\box43
+\c@L@lines=\count122
+\c@L@depth=\count123
+\L@Pindent=\dimen153
+\L@Findent=\dimen154
+\L@Nindent=\dimen155
+\L@lraise=\dimen156
+\L@first=\dimen157
+\L@next=\dimen158
+\L@slope=\dimen159
+\L@height=\dimen160
+\L@novskip=\dimen161
+\L@target@ht=\dimen162
+\L@target@dp=\dimen163
+\L@target@tht=\dimen164
+\LettrineWidth=\dimen165
+\LettrineHeight=\dimen166
+\LettrineDepth=\dimen167
+\Llist@everypar=\toks24
+
+Loading lettrine.cfg
+(c:/texlive/2019/texmf-dist/tex/latex/lettrine/lettrine.cfg)) (c:/texlive/2019/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+) (c:/texlive/2019/texmf-dist/tex/latex/fancybox/fancybox.sty
+Package: fancybox 2010/05/15 1.4
+
+Style option: `fancybox' v1.4 <2010/05/15> (tvz)
+\@fancybox=\box44
+\shadowsize=\dimen168
+\@Sbox=\box45
+\do@VerbBox=\toks25
+\the@fancyput=\toks26
+\this@fancyput=\toks27
+\EndVerbatimTokens=\toks28
+\Verbatim@Outfile=\write4
+\Verbatim@Infile=\read1
+) (c:/texlive/2019/texmf-dist/tex/latex/ctable/ctable.sty
+Package: ctable 2015/10/17 v1.31 ctable package for flexible typesetting of table and figure floats using key/value directives
+ (c:/texlive/2019/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
+) (c:/texlive/2019/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count124
+) (c:/texlive/2019/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+ (c:/texlive/2019/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: xetex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) (c:/texlive/2019/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+ (c:/texlive/2019/texmf-dist/tex/generic/xkeyval/xkeyval.tex (c:/texlive/2019/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks29
+\XKV@tempa@toks=\toks30
+)
+\XKV@depth=\count125
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) (c:/texlive/2019/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2016/02/03 v2.11b `tabularx' package (DPC)
+\TX@col@width=\dimen169
+\TX@old@table=\dimen170
+\TX@old@col=\dimen171
+\TX@target=\dimen172
+\TX@delta=\dimen173
+\TX@cols=\count126
+\TX@ftn=\toks31
+) (c:/texlive/2019/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+\c@r@tfl@t=\count127
+\rotFPtop=\skip85
+\rotFPbot=\skip86
+\rot@float@box=\box46
+\rot@mess@toks=\toks32
+)
+
+Package ctable Warning: 
+(ctable)                Transparency disabled: pdfTeX is not running in PDF mode .
+
+\@CTframesep=\dimen174
+\@dfltCTframesep=\dimen175
+\@CTframerule=\dimen176
+\@dfltCTframerule=\dimen177
+\@CTwidth=\dimen178
+\@dfltCTwidth=\dimen179
+\@CTcaptionskip=\dimen180
+\@dfltCTcaptionskip=\dimen181
+\@CTmaxwidth=\dimen182
+\@dfltCTmaxwidth=\dimen183
+\@CTmincapwidth=\dimen184
+\@dfltCTmincapwidth=\dimen185
+\@CTfooterwidth=\dimen186
+\@dfltCTfooterwidth=\dimen187
+\@CTw=\dimen188
+\@CTfloatwidth=\dimen189
+\@CToldsep=\dimen190
+\@CToldrule=\dimen191
+\CT@t=\box47
+\@CTcurftwidth=\dimen192
+) (c:/texlive/2019/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen193
+\c@nlinenum=\count128
+\TeXr@lab=\toks33
+) (./FORMAT/my_format.tex
+\c@theorem=\count129
+\c@lemma=\count130
+\c@corollary=\count131
+\c@definition=\count132
+\c@example=\count133
+\c@case=\count134
+)
+\c@thm=\count135
+ (./QE.aux)
+\openout1 = `QE.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+ (./PREFACE/titlepage.tex
+File: ./Figures/ntu_logo.png Graphic file (type bmp)
+<./Figures/ntu_logo.png>
+LaTeX Font Info:    Try loading font information for TU+phv on input line 15.
+LaTeX Font Info:    No file TUphv.fd. on input line 15.
+
+
+LaTeX Font Warning: Font shape `TU/phv/bx/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 15.
+
+)
+
+LaTeX Warning: \oval, \circle, or \line size unavailable on input line 74.
+
+[1
+
+
+] [2] (./PREFACE/frontmatter.tex (./PREFACE/abstract.tex
+
+LaTeX Warning: Citation `yavits2014effect' on page I undefined on input line 4.
+
+) [1
+
+] (./QE.toc [2
+
+])
+\tf@toc=\write5
+\openout5 = `QE.toc'.
+
+ [3] (./QE.lof)
+\tf@lof=\write6
+\openout6 = `QE.lof'.
+
+ [4
+
+] (./QE.lot)
+\tf@lot=\write7
+\openout7 = `QE.lot'.
+
+ [5
+
+])
+Chapter 1.
+(./BODY/chapter1.tex) [1
+
+]
+Chapter 2.
+(./BODY/chapter2.tex) [2
+
+]
+Chapter 3.
+(./BODY/chapter3.tex) [3
+
+]
+Chapter 4.
+(./BODY/chapter4.tex
+File: Figures/../Figures/big_little.jpg Graphic file (type bmp)
+<Figures/../Figures/big_little.jpg>
+ [4
+
+] [5]
+File: Figures/../Figures/main_flowchart.pdf Graphic file (type pdf)
+<use Figures/../Figures/main_flowchart.pdf>
+
+Overfull \hbox (92.34364pt too wide) in paragraph at lines 60--61
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 74.85466pt on input line 62.
+
+File: Figures/../Figures/Expand_Neighborhood.pdf Graphic file (type pdf)
+<use Figures/../Figures/Expand_Neighborhood.pdf>
+
+Overfull \hbox (92.34364pt too wide) in paragraph at lines 66--67
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 74.85466pt on input line 68.
+
+[6] [7] [8]
+File: Figures/../Figures/example_for_tabulist1.png Graphic file (type bmp)
+<Figures/../Figures/example_for_tabulist1.png>
+File: Figures/../Figures/example_for_tabulist2.png Graphic file (type bmp)
+<Figures/../Figures/example_for_tabulist2.png>
+ [9] [10]
+File: Figures/../Figures/agent_env.JPG Graphic file (type bmp)
+<Figures/../Figures/agent_env.JPG>
+File: Figures/../Figures/timeline_RL.JPG Graphic file (type bmp)
+<Figures/../Figures/timeline_RL.JPG>
+ [11] [12] [13]
+File: Figures/../Figures/bad_example_MC.png Graphic file (type bmp)
+<Figures/../Figures/bad_example_MC.png>
+ [14] [15] [16]
+File: Figures/../Figures/Actor_Critic.jpg Graphic file (type bmp)
+<Figures/../Figures/Actor_Critic.jpg>
+ [17] [18] [19]
+File: Figures/../Figures/example_for_route_space.png Graphic file (type bmp)
+<Figures/../Figures/example_for_route_space.png>
+ [20]
+File: Figures/../Figures/routing.png Graphic file (type bmp)
+<Figures/../Figures/routing.png>
+) [21] [22]
+Chapter 5.
+(./BODY/chapter5.tex) [23
+
+]
+Chapter 6.
+(./BODY/chapter6.tex)
+No file QE.bbl.
+[24
+
+] (./QE.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5721 strings out of 492922
+ 75425 string characters out of 6136752
+ 168586 words of memory out of 5000000
+ 9578 multiletter control sequences out of 15000+600000
+ 10677 words of font info for 64 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 37i,18n,53p,890b,495s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on QE.pdf (31 pages).
